@@ -1,0 +1,6 @@
+{
+  "port": 5000,
+  "jwtSecret": "CWD school nive job",
+  "mongoUri": "mongodb+srv://Admin:W2G-ff9-Xap-bcS@cluster0.9a4cf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:5000"
+}
