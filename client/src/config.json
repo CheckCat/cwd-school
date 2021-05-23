@@ -1,0 +1,39 @@
+{
+  "regSteps": [
+    "account",
+    "code",
+    "form"
+  ],
+  "regStateTemplate": {
+    "blockchainAccount": "bombaster322",
+    "blockchainId": "123",
+    "code": "",
+    "password": "12345678910",
+    "confirmPassword": "12345678910",
+    "telegram": "@oue",
+    "email": "vadimsabi@mail.ru",
+    "phone": "+79178003676"
+  },
+  "createStateTemplate": {
+    "keyword": "",
+    "title": "",
+    "lessons": [
+      {
+        "video": "",
+        "timecodes": [""],
+        "text": [""]
+      }
+    ],
+    "subscriptions": []
+  },
+  "lessonStateTemplate": {
+    "video": "",
+    "timecodes": [],
+    "text": []
+  },
+  "subscriptionStateTemplate": {
+    "index": 0,
+    "duration": "",
+    "price": ""
+  }
+}

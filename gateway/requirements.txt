@@ -1,0 +1,7 @@
+wheel
+peewee
+tornado
+requests
+crowdwiz
+flask
+# -U requests[socks]
