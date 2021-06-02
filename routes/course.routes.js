@@ -57,7 +57,7 @@ router.post(
     try {
       const paths = req.files?.map(el => el.path.split('\\').join('/'))
       console.log(req.body)
-      console.log(req.headers)
+      console.log(JSON.parse(req.body.data))
       return res.status(200).json({message: 'Все круто', body: req.body})
     } catch(e) {
       console.log(e)

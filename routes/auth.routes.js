@@ -61,7 +61,6 @@ router.post(
 
       user.subscriptions.forEach(id => {
         const course = Course.findById(id)
-        console.log(course)
       })
 
       const token = jwt.sign(
@@ -120,8 +119,7 @@ router.post(
         subscriptions: {},
         role: 'student'
       })
-
-      console.log(user)
+      
 
       await user.save()
 

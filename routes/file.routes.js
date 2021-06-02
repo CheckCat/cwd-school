@@ -16,7 +16,6 @@ router.get(
 
       fileStream.on('open', () => {
         const type = filename.split('.')[1]
-        console.log(type)
         switch (type) {
           case 'pdf':
             res.contentType('application/pdf')

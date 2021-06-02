@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {CreateContext} from "../../../context/CreateContext";
 
-export const TimecodeInput = ({props: {index, form, setForm}}) => {
+export const TimecodeInput = ({props: {lessonIndex, index}}) => {
+  const {form, setForm} = useContext(CreateContext)
   const changeHandler = ev => {
     setForm(prev => {
-      prev.timecodes[index] = ev.target.value
+      prev.lessons[lessonIndex].timecodes[index] = ev.target.value
       return prev
     })
   }
@@ -15,7 +17,7 @@ export const TimecodeInput = ({props: {index, form, setForm}}) => {
         type="text"
         name="timecode"
         onChange={changeHandler}
-        value={form.timecodes[index]}
+        value={form.lessons[lessonIndex].timecodes[index]}
       />
     </label>
   )

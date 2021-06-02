@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {CreateContext} from "../../../context/CreateContext";
 
-export const TextInput = ({props: {index, form, setForm}}) => {
+export const TextInput = ({props: {lessonIndex, index}}) => {
+  const {form, setForm} = useContext(CreateContext)
   const changeHandler = ev => {
     setForm(prev => {
-      prev.text[index] = ev.target.value
+      prev.lessons[lessonIndex].text[index] = ev.target.value
       return prev
     })
   }
@@ -15,7 +17,7 @@ export const TextInput = ({props: {index, form, setForm}}) => {
         type="text"
         name="text"
         onChange={changeHandler}
-        value={form.text[index]}
+        value={form.lessons[lessonIndex].text[index]}
       />
     </label>
   )

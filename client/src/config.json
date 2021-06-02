@@ -19,21 +19,19 @@
     "title": "",
     "lessons": [
       {
-        "video": "",
-        "timecodes": [""],
-        "text": [""]
+        "timecodes": [],
+        "text": []
       }
     ],
-    "subscriptions": []
+    "subscriptions": [
+      {}
+    ]
   },
   "lessonStateTemplate": {
-    "video": "",
     "timecodes": [],
     "text": []
   },
   "subscriptionStateTemplate": {
-    "index": 0,
-    "duration": "",
-    "price": ""
+
   }
 }
