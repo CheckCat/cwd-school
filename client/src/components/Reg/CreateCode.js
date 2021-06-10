@@ -1,17 +1,13 @@
-import React, {useContext} from 'react'
-import {RegContext} from "../../context/RegContext"
-import {useHttp} from "../../hooks/http.hook"
-import config from "../../config.json"
+import React from 'react'
+import config from "../../config.js"
 import {Link} from "react-router-dom";
 
-export const CreateCode = () => {
-  const {setState, form, changeHandler} = useContext(RegContext)
-  const {loading, error, request} = useHttp()
+const CreateCode = ({props: {setState, form, changeHandler, request, isLoading}}) => {
 
   const createCodeHandler = async (ev) => {
     try {
       ev.preventDefault()
-      const data = await request(`http://localhost:5000/api/create_code`, 'POST', {
+      const data = await request(`${config.flaskUrl}/api/create_code`, 'POST', {
         blockchainAccount: form.blockchainAccount
       })
       console.log(data)
@@ -26,7 +22,7 @@ export const CreateCode = () => {
       <form className='auth-form' onSubmit={createCodeHandler}>
         <h1 className='auth-form__title'>Регистрация</h1>
         {
-          loading
+          isLoading
             ?
             <h2>Мяу</h2>
             :
@@ -50,3 +46,5 @@ export const CreateCode = () => {
     </>
   )
 }
+
+export default CreateCode

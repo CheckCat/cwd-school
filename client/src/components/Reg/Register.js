@@ -1,19 +1,13 @@
-import React, {useContext} from 'react'
-import {RegContext} from "../../context/RegContext"
-import {AuthContext} from "../../context/AuthContext";
-import {useHttp} from "../../hooks/http.hook";
-import config from "../../config.json"
+import React from 'react'
+import config from '../../config'
 
-export const Register = () => {
-  const {form, changeHandler} = useContext(RegContext)
-  const {login, setName} = useContext(AuthContext)
-  const {loading, error, request} = useHttp()
+const Register = ({props: {form, changeHandler, login, clearForm, isLoading, request}}) => {
 
   const registerHandler = async (ev) => {
     try {
       ev.preventDefault()
       if (form.password !== form.confirmPassword) return
-      const data = await request('http://localhost:5001/api/auth/register', 'POST', {
+      const {token, userId, role, name} = await request(`${config.baseUrl}/api/auth/register`, 'POST', {
         blockchainAccount: form.blockchainAccount,
         blockchainId: form.blockchainId,
         password: form.password,
@@ -21,8 +15,8 @@ export const Register = () => {
         email: form.email,
         phone: form.phone
       })
-      login(data.token, data.userId, data.role)
-      setName(data.blockchainAccount)
+      login(token, userId, role, name)
+      clearForm('reg')
     } catch (e) {
       console.log(e)
     }
@@ -32,7 +26,7 @@ export const Register = () => {
     <form className='auth-form' onSubmit={registerHandler}>
       <h1 className='auth-form__title'>Регистрация</h1>
       {
-        loading
+        isLoading
           ?
           <h2>Мяу</h2>
           :
@@ -103,3 +97,5 @@ export const Register = () => {
     </form>
   );
 }
+
+export default Register

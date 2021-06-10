@@ -3,7 +3,9 @@ const {Schema, model, Types} = require('mongoose')
 const schema = new Schema({
   keyword: {type: String, required: true, unique: true},
   title: {type: String, required: true, unique: true},
-  lessons: [{type: Types.ObjectId, ref: 'Lesson'}]
+  blocks: [{type: Types.ObjectId, ref: 'Block'}],
+  subscriptionPrices: [{price: Number, duration: Number}],
+  subscriptionDescription: [{type: String}]
 })
 
 module.exports = model('Course', schema)

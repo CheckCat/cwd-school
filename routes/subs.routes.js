@@ -1,5 +1,5 @@
 const {Router} = require('express')
-const Subscription = require('../models/Subscription')
+const Subscription = require('../models/SubscriptionPrice')
 const Course = require('../models/Course')
 const identification = require('../middleware/identification.middleware')
 const router = Router()

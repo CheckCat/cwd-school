@@ -1,22 +1,19 @@
-import React, {useContext} from 'react'
-import {RegContext} from "../../context/RegContext"
-import {useHttp} from '../../hooks/http.hook'
-import config from "../../config.json"
+import React from 'react'
+import config from "../../config.js"
 
-export const VerifyCode = () => {
-  const {setState, setForm, form, changeHandler} = useContext(RegContext)
-  const {loading, error, request} = useHttp()
+const VerifyCode = ({props: {setState, fillForm, form, changeHandler, isLoading,
+  request}}) => {
 
   const verifyCodeHandler = async (ev) => {
     try {
       ev.preventDefault()
-      const data = await request(`http://localhost:5000/api/verify_code`, 'POST', {
+      const data = await request(`${config.flaskUrl}/api/verify_code`, 'POST', {
         code: form.code,
         blockchainAccount: form.blockchainAccount
       })
       console.log(data)
       setState(config.regSteps[2])
-      setForm(prev => ({...prev, blockchainId: data.bc_id}))
+			fillForm('blockchainId', data.bc_id, 'reg')
     } catch (e) {
       console.log(e)
     }
@@ -26,7 +23,7 @@ export const VerifyCode = () => {
     <form className='auth-form' onSubmit={verifyCodeHandler}>
       <h1 className='auth-form__title'>Регистрация</h1>
       {
-        loading
+        isLoading
           ?
           <h2>Мяу</h2>
           :
@@ -49,3 +46,5 @@ export const VerifyCode = () => {
     </form>
   );
 }
+
+export default VerifyCode

@@ -1,37 +1,52 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {BrowserRouter as Router} from "react-router-dom"
-import {chooseRoutes} from "./routes"
-import {useAuth} from "./hooks/auth.hook"
-import {AuthContext} from "./context/AuthContext";
-import {Navbar} from "./components/Navbar/Navbar";
-import {Loader} from "./components/Loader";
-import {useHttp} from "./hooks/http.hook";
+import chooseRoutes from "./routes"
+import {connect} from "react-redux";
+import {tryAuth} from "./redux/actions/auth.actions";
+import Navbar from "./containers/Navbar/index";
+import {Loader} from "./components/Loader/index";
+import useHttp from "./hooks/http.hook";
+import config from './config.js'
+
+const {storageName} = config
 
 
-function App() {
-  const {token, role, login, name, logout, userId, ready, setName} = useAuth()
+function App({authData, addition: {isReady}, coursesData, tryAuth}) {
+  const request = useHttp()
   const [routes, setRoutes] = useState(<></>)
-
+  const tryAuthCallback = useCallback(tryAuth, [tryAuth])
   useEffect(() => {
-    setRoutes(chooseRoutes(role))
-  }, [role])
+    console.log(coursesData)
+    setRoutes(chooseRoutes(authData.role, coursesData))
+  }, [authData.role, coursesData])
+  
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem(storageName)) || {}
+    tryAuthCallback(data.token, request)
+  }, [tryAuthCallback, request])
 
-  if (!ready) {
+  if (!isReady) {
     return <Loader/>
   }
+  
   return (
-    <AuthContext.Provider value={{
-      token, login, logout, userId, role, name, setName
-    }}>
       <Router>
         <Navbar/>
         <div className="container">
           {routes}
         </div>
       </Router>
-
-    </AuthContext.Provider>
   );
 }
 
-export default App;
+const mapStateToProps = ({authData, addition, coursesData}) => ({
+  authData,
+  addition,
+  coursesData
+})
+
+const mapDispatchToProps = {
+  tryAuth
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

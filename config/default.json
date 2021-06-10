@@ -2,5 +2,7 @@
   "port": 5001,
   "jwtSecret": "I love cwd",
   "mongoUri": "mongodb+srv://Admin:W2G-ff9-Xap-bcS@cluster0.9a4cf.mongodb.net/school?retryWrites=true&w=majority",
-  "baseUrl": "http://localhost:5001"
+  "baseUrl": "http://localhost:5001",
+  "temporaryStorage": "temporaryStorage",
+  "endPoint": "files"
 }

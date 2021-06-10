@@ -1,30 +1,31 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {useHttp} from "../../hooks/http.hook";
-import {AuthContext} from "../../context/AuthContext";
+import React from 'react';
+import useHttp from "../../hooks/http.hook";
 import {Link} from "react-router-dom";
 import './index.css'
+import {clearForm, fillForm, login} from "../../redux/actions/auth.actions";
+import {connect} from "react-redux";
+import {pointOutData} from "../../redux/actions/data.actions";
+import config from "../../config";
 
+const AuthPage = ({addition: {isLoading}, form, fillForm, login, clearForm, pointOutData}) => {
+  const request = useHttp()
 
-export const AuthPage = () => {
-  const {login, setName} = useContext(AuthContext)
-  const {loading, error, request, clearError} = useHttp()
-  const [form, setForm] = useState({
-    blockchainAccount: '', password: ''
-  })
-  useEffect(() => {
-    clearError()
-  }, [error, clearError])
+  // useEffect(() => {
+  //   clearError()
+  // }, [error, clearError])
 
-  const changeHandler = event => {
-    setForm({...form, [event.target.name]: event.target.value})
+  const changeHandler = ({target: {name, value}}) => {
+    fillForm(name, value, 'auth')
   }
 
   const loginHandler = async (ev) => {
     try {
       ev.preventDefault()
-      const data = await request('http://localhost:5001/api/auth/login', 'POST', {...form})
-      login(data.token, data.userId, data.role)
-      setName(data.blockchainAccount)
+      const data = await request(`${config.baseUrl}/api/auth/login`, 'POST', {...form})
+      console.log(data)
+      login(data.token, data.userId,data.role, data.name)
+      pointOutData(data.courses)
+      clearForm('auth')
     } catch (e) {
       console.log(e)
     }
@@ -40,7 +41,7 @@ export const AuthPage = () => {
       <form className='auth-form' onSubmit={loginHandler}>
         <h1 className='auth-form__title'>Авторизация</h1>
         {
-          loading
+          isLoading
             ?
             <h2>Мяу</h2>
             :
@@ -74,3 +75,13 @@ export const AuthPage = () => {
     </>
   );
 }
+
+const mapStateToProps = ({addition, authForm, transferState}) => ({
+  addition, form: authForm, transferState
+})
+
+const mapDispatchToProps = {
+  login, fillForm, clearForm, pointOutData
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthPage)

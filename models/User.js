@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model, Types} = require('mongoose')
 
 const schema = new Schema({
   email: {type: String, required: true, unique: true},
@@ -7,7 +7,7 @@ const schema = new Schema({
   phone: {type: String, required: true},
   blockchainAccount: {type: String, required: true, unique: true},
   blockchainId: {type: String, required: true, unique: true},
-  subscriptions: {type: Map},
+  subscriptions: [{course: Types.ObjectId, timeframe: Date}],
   role: {type: String, required: true}
 }, {versionKey: false})
 

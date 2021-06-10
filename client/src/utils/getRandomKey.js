@@ -1,1 +1,3 @@
-export const getRandomKey = () => Math.random()
+const getRandomKey = () => Math.random()
+
+export default getRandomKey
