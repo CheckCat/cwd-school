@@ -1,4 +1,4 @@
-import {CLEAR_ERROR,  ERROR, LOADING, READY_SHOW} from "../types";
+import {CLEAR_ERROR, ERROR, LOADING, READY_SHOW} from "../types";
 
 export const readyShow = () => {
 	return {
@@ -12,12 +12,10 @@ export const loading = () => {
 	}
 }
 
-export const error = message => {
+export const setError = (message, isError) => {
 	return {
 		type: ERROR,
-		payload: {
-			message
-		}
+		payload: {message, isError}
 	}
 }
 

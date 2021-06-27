@@ -1,19 +1,26 @@
-import {CLEAR_AUTH_FORM, CLEAR_REG_FORM, FILL_AUTH_FORM, FILL_REG_FORM, LOGIN, LOGOUT} from "../types";
+import {CHANGE_THEME, CLEAR_AUTH_FORM, CLEAR_REG_FORM, FILL_AUTH_FORM, FILL_REG_FORM, LOGIN, LOGOUT} from "../types";
 import {readyShow} from "./service.actions"
 import config from '../../config.js'
 import {pointOutData} from "./data.actions";
 
 const {storageName} = config
 
-export const login = (token, id, role, name) => {
+export const login = (token, role, name) => {
 	localStorage.setItem(storageName, JSON.stringify({
-		userId: id, token
+		token
 	}))
 	return {
 		type: LOGIN,
 		payload: {
-			token, id, role, name
+			token, role, name
 		}
+	}
+}
+
+export const changeTheme = theme => {
+	return {
+		type: CHANGE_THEME,
+		payload: theme
 	}
 }
 
@@ -34,7 +41,7 @@ export const fillForm = (key, value, type) => {
 	const payloads = {
 		payload: {[key]: value}
 	}
-
+	
 	switch (type) {
 		case 'auth':
 			return {...payloads, type: FILL_AUTH_FORM}
@@ -63,8 +70,10 @@ export const tryAuth = (token, request) => async dispatch => {
 		const data = await request(`${config.baseUrl}/api/auth/verify`, 'POST', null,
 			{Authorization: `Bearer ${token}`})
 		dispatch(readyShow())
+		if(!data) return
 		dispatch(pointOutData(data.courses))
-		dispatch(login(data.token, data.userId, data.role, data.name))
+		dispatch(login(data.token, data.role, data.name))
+		dispatch(changeTheme(data.theme))
 	} catch (e) {
 		console.log(e)
 		dispatch(readyShow())

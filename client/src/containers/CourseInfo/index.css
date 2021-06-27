@@ -1,0 +1,110 @@
+.course-info {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid var(--main-green-color);
+    border-radius: 50px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    font-size: 2.4rem;
+    font-family: 'Roboto-Medium';
+    list-style: none;
+}
+
+.course-info__title {
+    align-self: center;
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding: 1.1rem 3.7rem;
+    font-size: 3.2rem;
+    font-family: 'Roboto-Black';
+    transform: translateY(-50%);
+    background: var(--secondary-green-color);
+    color: var(--white);
+    align-items: center;
+}
+
+.course-info__wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.course-info__text_green {
+    color: var(--main-green-color);
+}
+
+.course-info__container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    overflow: hidden;
+}
+
+.course-info__list {
+    min-width: 35%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: .5rem;
+}
+
+.course-info__elem {
+    position: relative;
+    padding-left: 20px;
+    list-style: none;
+}
+
+.course-info__elem::before {
+    content: '-';
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.course-info__btn-continue {
+    align-self: center;
+    margin: 20px 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.course-info__btn-continue::before {
+    display: none;
+}
+
+.course-info__toggle {
+    align-self: center;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 25px;
+    padding: 9px 47px;
+    transform: translateY(50%);
+    background: var(--secondary-green-color);
+    font-size: 2rem;
+    font-family: 'Roboto-Medium';
+    color: var(--white);
+    cursor: pointer;
+}
+
+@media (max-width: 1350px) {
+    .btn-continue {
+        padding: 1.4rem 3rem;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .btn-continue {
+        padding: 2.1rem 4.3rem;
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .course-info {
+        border-radius: 25px;
+    }
+}

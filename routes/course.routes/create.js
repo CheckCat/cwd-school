@@ -39,9 +39,9 @@ module.exports = async (req, res) => {
 		admin.markModified('subscriptions')
 		await admin.save()
 		
-		return res.status(201).json({message: 'Курс был создан'})
+		return res.status(201).json({message: 'Курс был создан!'})
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({e: 'Что-то пошло не так'})
+		return res.status(500).json({message: 'Что-то пошло не так!'})
 	}
 }

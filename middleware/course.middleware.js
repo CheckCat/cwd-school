@@ -12,9 +12,9 @@ module.exports = async (req, res, next) => {
 		if (possible) {
 			return res.status(400).json({message: 'Курс с таким ключевым словом уже существует'})
 		}
-	
+		
 		next()
-	} catch(e) {
+	} catch (e) {
 		return res.status(400).json({message: 'Что-то пошло при проверке наличия курса'})
 	}
 }

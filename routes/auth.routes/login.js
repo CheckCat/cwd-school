@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
 		if (!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
-				message: 'Некорректные данные при входе в систему'
+				message: 'Некорректные данные при входе в систему!'
 			})
 		}
 		
@@ -19,12 +19,12 @@ module.exports = async (req, res) => {
 		const user = await User.findOne({blockchainAccount})
 		
 		if (!user) {
-			return res.status(400).json({message: 'Пользователь не найден'})
+			return res.status(400).json({message: 'Пользователь не найден!'})
 		}
 		
 		const isMatch = await bcrypt.compare(password, user.password)
 		if (!isMatch) {
-			return res.status(400).json({message: 'Неверный пароль, попробуйте снова'})
+			return res.status(400).json({message: 'Неверный пароль, попробуйте снова!'})
 		}
 		
 		const courses = await getCourses(user)
@@ -34,10 +34,10 @@ module.exports = async (req, res) => {
 			config.get('jwtSecret'),
 			{expiresIn: '1h'}
 		)
-		return res.status(200).json({token, role: user.role, name: user.blockchainAccount, courses})
+		return res.status(200).json({message: 'Вы успешно вошли!', token, theme: user.theme, role: user.role, name: user.blockchainAccount, courses})
 		
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!'})
 	}
 }

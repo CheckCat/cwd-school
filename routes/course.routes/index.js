@@ -12,8 +12,15 @@ const upload = require('../../middleware/upload.middleware')
 const create = require('./create')
 const getBlock = require('./getBlock')
 const getLesson = require('./getLesson')
+const getCourses = require('./getCourses')
 const router = Router()
 
+
+router.get(
+	'',
+	[],
+	getCourses
+)
 router.get(
 	'/:keyword/:blockKey',
 	[],

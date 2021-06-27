@@ -24,10 +24,10 @@ module.exports = async (req, res) => {
 			const {audio, pdf, title, description, video, timecodes, text} = await Lesson.findById(id)
 			return {audio, pdf, title, description, video, timecodes, text}
 		}, {})
-
-		return res.status(200).json({lesson, title: block.title})
+		
+		return res.status(200).json({lesson, title: block.title, lessonsLength: block.lessons.length})
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({message: 'Что-то пошло не так'})
+		return res.status(500).json({message: 'Что-то пошло не так!'})
 	}
 }

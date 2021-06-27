@@ -24,19 +24,26 @@ candidates = {
 @app.route('/api/create_code', methods=['POST'])
 def createCode():
     data = request.json
-    user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
-    if(user):
-        return make_response({"message": "Такой аккаунт уже существует"}, 400)
 
     try:
+        user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
+        if (data['isForgot']):
+            if (not user):
+                return make_response({"message": "Такого пользователя не существует!"}, 400)
+        else:
+            if (user):
+                return make_response({"message": "Такой пользователь уже существует!"}, 400)
+
         candidates[data['blockchainAccount']] = {}
-        candidates[data['blockchainAccount']]['code'] = generateCode()
-        print(candidates[data['blockchainAccount']]['code'])
+        candidate = candidates[data['blockchainAccount']]
+        candidate['code'] = generateCode()
+        print(candidate['code'])
         candidates[data['blockchainAccount']]['bc_id'] = 1
-        # res['bc_id'] = sendCode(res['code'], data['blockchainAccount'])
+        # candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
         return make_response({"ok": True}, 200)
     except:
-        return make_response({"message": "Такого аккаунта не существует"}, 400)
+        return make_response({"message": "Такого аккаунта не существует!"}, 400)
+
 
 
 @app.route('/api/verify_code', methods=['POST'])
@@ -49,7 +56,7 @@ def veryfiCode():
         del candidates[data['blockchainAccount']]
         return make_response({'bc_id': bc_id}, 200)
     except:
-        return make_response({"message": "Что-то пошло не так"}, 500)
+        return make_response({"message": "Что-то пошло не так!"}, 500)
 
 
 @app.route('/api/get_subscriptions', methods=['POST'])
@@ -59,7 +66,7 @@ def getSubs():
         arr, max_op = checkSubs(data['max_op'])
         return make_response({"subscriptions": arr, "max_op": max_op}, 200)
     except:
-        return make_response({"message": "Что-то пошло не так"}, 500)
+        return make_response({"message": "Что-то пошло не так!"}, 500)
 
 
 if __name__ == '__main__':

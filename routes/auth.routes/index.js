@@ -4,6 +4,8 @@ const auth = require('../../middleware/auth.middleware')
 const verify = require('./verify')
 const login = require('./login')
 const register = require('./register')
+const forgotChangePass = require('./forgotChangePass')
+const changeTheme = require('./changeTheme')
 const router = Router()
 
 router.post(
@@ -22,11 +24,22 @@ router.post(
 router.post(
   '/register',
   [
-    check('email', 'Введите адрес электронной почты корректно').normalizeEmail().isEmail(),
-    check('phone', 'Введите корректный номер телефона').isMobilePhone(),
     check('password', 'Введите пароль').isLength({min: 8}),
   ],
   register
+)
+router.post(
+  '/forgot_change_pass',
+  [
+    check('password', 'Введите пароль').isLength({min: 8}),
+  ],
+  forgotChangePass
+)
+router.post(
+  '/theme',
+  [],
+  auth,
+  changeTheme
 )
 
 module.exports = router

@@ -14,6 +14,7 @@ app.options('*', cors())
 app.use('/files', require('./routes/file.routes'))
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/course', require('./routes/course.routes'))
+app.use('/api/promo', require('./routes/promo.routes'))
 // app.use('/api/subs', require('./routes/subs.routes'))
 
 const PORT = config.get('port') || 5000

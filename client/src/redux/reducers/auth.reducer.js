@@ -1,15 +1,16 @@
-import {CLEAR_AUTH_FORM, CLEAR_REG_FORM, FILL_AUTH_FORM, FILL_REG_FORM, LOGIN, LOGOUT} from "../types";
+import {CHANGE_THEME, CLEAR_AUTH_FORM, CLEAR_REG_FORM, FILL_AUTH_FORM, FILL_REG_FORM, LOGIN, LOGOUT} from "../types";
 import config from "../../config";
 
 const {authStateTemplate, regStateTemplate} = config
 
-export const authReducer = (state = {}, action) => {
+export const authReducer = (state = {theme: 'dark'}, action) => {
 	switch (action.type) {
 		case LOGIN:
 			return {...state, ...action.payload}
 		case LOGOUT:
-			console.log('logout')
 			return {...state, ...action.payload}
+		case CHANGE_THEME:
+			return {...state, theme: action.payload}
 		default:
 			return state
 	}

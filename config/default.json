@@ -4,5 +4,7 @@
   "mongoUri": "mongodb+srv://Admin:W2G-ff9-Xap-bcS@cluster0.9a4cf.mongodb.net/school?retryWrites=true&w=majority",
   "baseUrl": "http://localhost:5001",
   "temporaryStorage": "temporaryStorage",
-  "endPoint": "files"
+  "endPoint": "files",
+  "baseUrl": "http://localhost:5001",
+  "flaskUrl": "http://localhost:5000"
 }

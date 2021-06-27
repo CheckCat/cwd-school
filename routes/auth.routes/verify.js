@@ -13,8 +13,8 @@ module.exports = async (req, res) => {
 			config.get('jwtSecret'),
 			{expiresIn: '1h'}
 		)
-		return res.status(200).json({token: newToken, role: user.role, name: user.blockchainAccount, courses})
+		return res.status(200).json({token: newToken, theme: user.theme, role: user.role, name: user.blockchainAccount, courses})
 	} catch (e) {
-		return res.status(500).json({message: 'Что-то пошло не так'})
+		return res.status(500).json({message: 'Что-то пошло не так!'})
 	}
 }

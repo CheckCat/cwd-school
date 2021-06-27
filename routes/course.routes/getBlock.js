@@ -23,9 +23,9 @@ module.exports = async (req, res) => {
 			return {title, description, index: index + 1}
 		}))
 		
-		return res.status(200).json({lessons, title: block.title})
+		return res.status(200).json({lessons, courseTitle: course.title, blockTitle: block.title})
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({message: 'Что-то пошло не так'})
+		return res.status(500).json({message: 'Что-то пошло не так!'})
 	}
 }

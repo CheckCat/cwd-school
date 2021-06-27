@@ -12,34 +12,31 @@ module.exports = async (req, res) => {
 		if (!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
-				message: 'Некорректные данные при попытке регистрации'
+				message: 'Некорректные данные при попытке регистрации!'
 			})
 		}
 		
-		let {email, password, telegram, phone, blockchainAccount, blockchainId} = req.body
+		let {password, telegram, blockchainAccount, blockchainId} = req.body
 		
 		const candidate = await User.findOne({blockchainAccount})
 		
 		if (candidate) {
-			return res.status(400).json({message: 'Такой пользователь уже существует'})
+			return res.status(400).json({message: 'Такой пользователь уже существует!'})
 		}
 		
 		if (telegram[0] != "@") {
-			telegram = telegram.split('')
-			telegram.unshift('@')
-			telegram = telegram.join('')
+			telegram = '@' + telegram
 		}
 		
 		const hashedPassword = await bcrypt.hash(password, 12)
 		const user = new User({
-			email,
 			password: hashedPassword,
 			telegram,
-			phone,
 			blockchainAccount,
 			blockchainId,
-			subscriptions: {},
-			role: 'student'
+			subscriptions: [],
+			role: 'student',
+			theme: 'dark'
 		})
 		
 		
@@ -51,10 +48,16 @@ module.exports = async (req, res) => {
 			{expiresIn: '1h'}
 		)
 		
-		return res.status(201).json({token, userId: user.id, role: user.role, name: user.blockchainAccount})
+		return res.status(201).json({
+			message: 'Вы успешно зарегистрировались!',
+			token,
+			theme: user.theme,
+			role: user.role,
+			name: user.blockchainAccount
+		})
 		
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
+		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!'})
 	}
 }

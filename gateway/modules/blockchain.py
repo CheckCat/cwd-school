@@ -44,4 +44,4 @@ def checkSubs(max_op):
                 {"buyer": h['op'][1]['from'].split('.')[2],
                  "amount": str(int(h['op'][1]['amount']['amount']) / 100000)})
             max_op = h['id'].split('.')[2]
-    return [res, max_op]
+    return [res, str(max_op)]

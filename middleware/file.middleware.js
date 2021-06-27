@@ -64,7 +64,7 @@ module.exports = async (req, res, next) => {
 				mkdirSync(`files/${data.keyword}/${b.keyword}/${lessonIndex + 1}/images`, {recursive: true})
 			})
 		})
-
+		
 		dragAndDropFiles(data, temporaryStorage, endPoint)
 		
 		next()

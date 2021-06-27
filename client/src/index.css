@@ -1,32 +1,119 @@
-@font-face {
-    font-family: "Roboto";
-    src: url(./fonts/Roboto.ttf)
-}
+@import "fonts.css";
 
 * {
     margin: 0;
     padding: 0;
-    color: #fff;
-
-}
-
-input { color: white !important}
-
-button {
-    color: black;
+    color: var(--main-color);
 }
 
 html {
-    background: #060606;
-    font-size: 10px;
+    background: var(--background);
+    font-size: 9px;
     font-family: 'Roboto', sans-serif;
 }
 
-.container {
-    max-width: 900px;
-    margin: 0 auto;
+.dark-theme {
+    --background: #060606 url("dark-images/background.jpg");
+    --white: #E4E4E4;
+    --main-color: #E4E4E4;
+    --secondary-color: #151515;
+    --main-green-color: #2dff9a;
+    --secondary-green-color: #28C099;
+    --opposite-main-green-color: #1E725E;
+    --danger-color: #FF307A;
+    --first-gradient-color: #282828;
+    --second-gradient-color: #141414;
+    --close-color: #9C1A1C;
+    --mini-logo: url('dark-images/mini-logo.png');
+    --what-is-radial: url('dark-images/what-is_radial.png');
+    --what-is-diagramm: url('dark-images/what-is_diagramm.png');
+    --promo: url('dark-images/promo.svg');
+    --user: url('dark-images/user.png');
+    --password: url('dark-images/password.png');
+    --key: url('dark-images/key.png');
+    --telegram: url('dark-images/telegram.png');
+    --block-icon-2n: url('dark-images/block-icon-2n.png');
+    --block-icon-2n-1: url('dark-images/block-icon-2n-1.png');
+    --hover-block-icon-2n: url('dark-images/hover-block-icon-2n.png');
+    --hover-block-icon-2n-1: url('dark-images/hover-block-icon-2n-1.png');
+    --back: url('dark-images/back.png');
+    --next: url('dark-images/next.png');
+    --audio: url('dark-images/audio.png');
+    --pdf: url('dark-images/pdf.png');
+    --buy: url('dark-images/buy.png');
 }
 
-.vimeo, .vimeo-image {
-    height: 500px;
+.light-theme {
+    --background: #FFFFFF;
+    --white: #E4E4E4;
+    --main-color: #151515;
+    --secondary-color: #E4E4E4;
+    --main-green-color: #438945;
+    --secondary-green-color: #438945;
+    --opposite-main-green-color: #1E725E;
+    --danger-color: #FF307A;
+    --first-gradient-color: var(--white);
+    --second-gradient-color: var(--white);
+    --close-color: #9C1A1C;
+    --mini-logo: url('light-images/mini-logo.png');
+    --what-is-radial: url('light-images/what-is_radial.png');
+    --what-is-diagramm: url('light-images/what-is_diagramm.png');
+    --promo: url('light-images/promo.svg');
+    --user: url('light-images/user.png');
+    --password: url('light-images/password.png');
+    --key: url('light-images/key.png');
+    --telegram: url('light-images/telegram.png');
+    --block-icon-2n: url('light-images/block-icon-2n.png');
+    --block-icon-2n-1: url('light-images/block-icon-2n-1.png');
+    --hover-block-icon-2n: url('light-images/hover-block-icon-2n.png');
+    --hover-block-icon-2n-1: url('light-images/hover-block-icon-2n-1.png');
+    --back: url('light-images/back.png');
+    --next: url('light-images/next.png');
+    --audio: url('light-images/audio.png');
+    --pdf: url('light-images/pdf.png');
+    --buy: url('light-images/buy.png');
 }
+
+mark {
+    color: var(--main-green-color);
+    background: none;
+}
+
+.container {
+    box-sizing: border-box;
+    max-width: 850px;
+    padding: 0 25px;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+@media (max-width: 1550px) {
+    html {
+        font-size: 8px;
+    }
+    .container {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1550px) {
+    html {
+        font-size: 7px;
+    }
+    .container {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1350px) {
+    .container {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 450px) {
+    html {
+        font-size: 6px;
+    }
+}
+

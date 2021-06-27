@@ -1,0 +1,17 @@
+.modal-window {
+    position: fixed;
+    right: 40px;
+    bottom: 30px;
+    padding: 1rem 3rem;
+    font-size: 1.9em;
+    font-family: 'Roboto-Medium';
+    background: var(--first-gradient-color);
+}
+
+.modal-window_error {
+    color: var(--danger-color);
+}
+
+.modal-window_success {
+    color: var(--main-green-color);
+}

@@ -30,10 +30,13 @@ const subscriptionStateTemplate = {
 	'price': ''
 }
 
+const owner = "bombaster228"
+
 const config = {
 	'storageName': 'userData',
 	'baseUrl': 'http://localhost:5001',
 	'flaskUrl': 'http://localhost:5000',
+	'paymentUrlTemplate': `https://cwd.global/shopping/payment?to_name=${owner}&amount=`,
 	'regSteps': [
 		'account',
 		'code',
@@ -45,13 +48,11 @@ const config = {
 	},
 	'regStateTemplate': {
 		'blockchainAccount': 'bombaster322',
-		'blockchainId': '123',
+		'blockchainId': '',
 		'code': '',
 		'password': '12345678910',
 		'confirmPassword': '12345678910',
 		'telegram': '@oue',
-		'email': 'vadimsabi@mail.ru',
-		'phone': '+79178003676'
 	},
 	'createCourseStateTemplate': {
 		'keyword': '',

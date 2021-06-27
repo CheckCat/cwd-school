@@ -1,13 +1,65 @@
 .nav {
     box-sizing: border-box;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 123px 0 72px 81px;
-    background: #111;
+    position: absolute;
+    width: 350px;
     border-left: none;
-    min-width: 430px;
+    padding: 123px 0 72px 81px;
+    background: transparent;
+    transition: .2s linear all;
+    overflow: hidden;
+}
+
+.nav__burger {
+    display: none;
+    position: absolute;
+    width: 30px;
+    height: 25px;
+    top: 30px;
+    right: 30px;
+    z-index:2;
+}
+
+.nav__burger-elem {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: .3s linear all;
+    background: var(--main-color);
+}
+
+.nav__burger-elem::before, .nav__burger-elem::after {
+    content: '';
+    position: absolute;
+    width: 100%;
     height: 100%;
+    transition: .3s linear all;
+    background: var(--main-color);
+}
+
+.nav__burger-elem::before {
+    top: -200%;
+    transform: rotate(0);
+}
+
+.nav__burger-elem::after {
+    bottom: -200%;
+    transform: rotate(0);
+}
+
+.nav__burger_opened> .nav__burger-elem {
+    background: transparent;
+}
+
+.nav__burger_opened> .nav__burger-elem::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.nav__burger_opened > .nav__burger-elem::after {
+    bottom: 0;
+    transform: rotate(-45deg);
 }
 
 .nav__list {
@@ -16,34 +68,48 @@
 
 .nav__logo {
     display: flex;
-    gap: 5rem;
+    gap: 0.2rem;
+}
+
+.logo-text__title {
     font-size: 3rem;
-    font-weight: 200;
+    font-family: 'Roboto-Thin';
+}
+
+.logo-text__description {
+    font-size: 1.6rem;
+    font-family: 'Roboto-Light';
+    margin-left: 8px;
+}
+
+.change-theme {
+    margin-left: 1.5rem;
 }
 
 .nav__auth {
-    margin: 37px 0 30px;
-    padding: 19px 0;
-    border-top: 1px solid #2E2E2E;
-    border-bottom: 1px solid #2E2E2E;
+    margin: 3.7rem 0 3rem;
+    padding: 1.9rem 0;
+    border-top: 1px solid var(--first-gradient-color);
+    border-bottom: 1px solid var(--first-gradient-color);
 }
 
 .nav__auth .nav__elem {
-    font-weight: 400;
+    font-family: 'Roboto';
 }
 
 .nav__elem {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 2.6rem;
     padding: 9px 0;
     font-size: 2.2rem;
-    font-weight: 300;
-    color: #fff;
+    font-family: 'Roboto-Light';
+    color: var(--main-color);
     text-decoration: none;
 }
 
-.nav__elem:not(.nav__user):hover {
+.nav__elem:not(.nav__user):not(.course-nav):hover, .course-nav__elem:hover {
     filter: brightness(.5);
 }
 
@@ -53,5 +119,82 @@
 }
 
 .nav__user, .active {
-    color: #2DFF9A;
+    color: var(--main-green-color);
 }
+
+.course-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+.course-nav__wrapper {
+    display: flex;
+    gap: 2.6rem;
+    margin-bottom: 15px;
+}
+
+.course-nav__list {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.course-nav__active-field {
+    margin-left: 7rem;
+    margin-bottom: 2px;
+    font-size: 1.6rem;
+    font-family: 'Roboto-Light';
+    list-style: disc;
+}
+
+.course-nav__active-field_active::marker {
+    color: var(--main-green-color);
+}
+
+.course-nav__active-field_disactive::marker {
+    color: var(--danger-color);
+}
+
+.course-nav__elem {
+    font-size: 2.2rem;
+    font-family: 'Roboto-Light';
+    list-style: none;
+    margin-left: 5rem;
+}
+
+.course-nav__elem > a {
+    text-decoration: none;
+}
+
+@media (max-width: 1350px) {
+    .nav {
+        border: 1px solid var(--main-green-color);
+        background: var(--secondary-color);
+        z-index: 1;
+    }
+    .nav.nav_closed {
+        width: 50px;
+        border-color: transparent;
+        background: transparent;
+    }
+    .nav__burger {
+        display: block;
+    }
+}
+
+@media (max-width: 650px) {
+    .nav {
+
+    }
+}
+
+@media (max-width: 380px) {
+    .nav {
+        border: none;
+    }
+    .nav__burger_opened {
+        right: 50px;
+    }
+}
+

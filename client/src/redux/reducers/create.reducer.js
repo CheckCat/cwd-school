@@ -15,7 +15,6 @@ const {
 	createBlockStateTemplate,
 	lessonStateTemplate,
 	subscriptionStateTemplate,
-	subscriptionPreviewStateTemplate,
 	timecodesStateTemplate,
 	textStateTemplate
 } = config
@@ -34,7 +33,7 @@ export const createFormReducer = (state = createCourseStateTemplate, action) => 
 			
 			return prevState
 		case FILL_SUBSCRIPTION_INFO:
-			if(prevState.subscriptions.description[indexSubInfo] === undefined) prevState.subscriptions.description.push('');
+			if (prevState.subscriptions.description[indexSubInfo] === undefined) prevState.subscriptions.description.push('');
 			(payload !== null) && (prevState.subscriptions.description[indexSubInfo] = payload)
 			return prevState
 		case FILL_SUBSCRIPTION_PRICE:
