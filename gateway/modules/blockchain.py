@@ -1,12 +1,8 @@
 from websocket import create_connection
-import datetime, time, random, json
-import requests
-import threading
+import random, json
 
 from crowdwiz import CrowdWiz
 from crowdwiz.account import Account
-from crowdwizbase.memo import decode_memo
-from crowdwizbase.account import PublicKey, PrivateKey
 
 with open('config.json') as json_data:
     config = json.load(json_data)
@@ -21,7 +17,7 @@ def createConnection():
     bc_acc = Account(config['owner'], blockchain_instance=cwd)
     ws.send('{"jsonrpc": "2.0", "method": "get_objects" "params": [["%s"]], "id": 1}' % bc_acc[
         'statistics'])
-    result = ws.recv()
+    ws.recv()
 
     return [cwd, bc_acc]
 

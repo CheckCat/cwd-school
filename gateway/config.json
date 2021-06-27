@@ -1,5 +1,6 @@
 {
-  "mongoUri": "mongodb+srv://Admin:W2G-ff9-Xap-bcS@cluster0.9a4cf.mongodb.net/school?retryWrites=true&w=majority",
-  "owner": "bombaster228",
+  "baseUrl": "http://crowdskills-blockchain.info",
+  "mongoUri": "mongodb+srv://Admin:aRnicaaRnica57@cwd-skills.zsbay.mongodb.net/cwd-skills?retryWrites=true&w=majority",
+  "owner": "School1",
   "owner_id": "65393"
 }

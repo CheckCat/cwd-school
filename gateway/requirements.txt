@@ -4,4 +4,6 @@ tornado
 requests
 crowdwiz
 flask
-# -U requests[socks]
+flask_mongoengine
+flask_cors
+waitress

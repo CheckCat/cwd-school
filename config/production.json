@@ -1,0 +1,9 @@
+{
+  "port": 8080,
+  "jwtSecret": "I love cwd",
+  "mongoUri": "mongodb+srv://Admin:aRnicaaRnica57@cwd-skills.zsbay.mongodb.net/cwd-skills?retryWrites=true&w=majority",
+  "temporaryStorage": "temporaryStorage",
+  "endPoint": "files",
+  "baseUrl": "http://crowdskills-blockchain.info:8080",
+  "flaskUrl": "http://crowdskills-blockchain.info:8081"
+}

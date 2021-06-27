@@ -1,7 +1,7 @@
 import json
 from flask_mongoengine import MongoEngine
-from flask import Flask, make_response, request, jsonify
-from flask_cors import CORS, cross_origin
+from flask import Flask, make_response, request
+from flask_cors import CORS
 
 from modules import generateCode, sendCode, checkSubs
 from models import Users
@@ -12,14 +12,12 @@ with open('config.json') as json_data:
 app = Flask(__name__)
 app.config["MONGODB_HOST"] = config['mongoUri']
 
-cors = CORS(app)
+cors = CORS(app, origins = [config['baseUrl'], config['baseUrl'] + ':8080'])
 
 db = MongoEngine()
 db.init_app(app)
 
-candidates = {
-
-}
+candidates = {}
 
 @app.route('/api/create_code', methods=['POST'])
 def createCode():
@@ -37,9 +35,7 @@ def createCode():
         candidates[data['blockchainAccount']] = {}
         candidate = candidates[data['blockchainAccount']]
         candidate['code'] = generateCode()
-        print(candidate['code'])
-        candidates[data['blockchainAccount']]['bc_id'] = 1
-        # candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
+        candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
         return make_response({"ok": True}, 200)
     except:
         return make_response({"message": "Такого аккаунта не существует!"}, 400)
@@ -70,4 +66,5 @@ def getSubs():
 
 
 if __name__ == '__main__':
-    app.run()
+    from waitress import serve
+    serve(app, host=config['baseUrl'], port=8081)
