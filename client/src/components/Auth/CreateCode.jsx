@@ -8,11 +8,11 @@ const CreateCode = ({props: {isForgot, setState, form, changeHandler, request, i
 	const createCodeHandler = async (ev) => {
 		try {
 			ev.preventDefault()
-			await request(`${config.flaskUrl}/api/create_code`, 'POST', {
+			const data = await request(`${config.flaskUrl}/api/create_code`, 'POST', {
 				blockchainAccount: form.blockchainAccount,
 				isForgot
 			})
-			setState(config.regSteps[1])
+			if(data.ok)	setState(config.regSteps[1])
 		} catch (e) {
 			console.log(e)
 		}

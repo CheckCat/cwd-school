@@ -12,8 +12,10 @@ def createConnection():
     crowdwiz_node = 'wss://cwd.global/ws'
     ws = create_connection(crowdwiz_node)
 
-    cwd = CrowdWiz(node=crowdwiz_node, keys=['5KbeT3mKBuUxFxBPwLMqtY46nvSsoJrJED92bU61TBXEng1nB2Y',
-                                             '5JocyYoh7J4mepECkeDzkx7JEftsgyZzoBupLp6Yqyy9DoMJhvG'])
+    # cwd = CrowdWiz(node=crowdwiz_node, keys=['5KbeT3mKBuUxFxBPwLMqtY46nvSsoJrJED92bU61TBXEng1nB2Y',
+    #                                         '5JocyYoh7J4mepECkeDzkx7JEftsgyZzoBupLp6Yqyy9DoMJhvG'])
+    cwd = CrowdWiz(node=crowdwiz_node, keys=['5K7oew6HiCQeCKY1JmrbM8FVQ5pTG92zBDtB8tdESVdbgREj6nN',
+                                             '5KGY2kxQS4MywSJw8YcG9HDPC8ZUv5o9RrYabGNeq4QhvzNrv1C'])
     bc_acc = Account(config['owner'], blockchain_instance=cwd)
     ws.send('{"jsonrpc": "2.0", "method": "get_objects" "params": [["%s"]], "id": 1}' % bc_acc[
         'statistics'])

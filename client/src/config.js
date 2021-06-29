@@ -30,12 +30,14 @@ const subscriptionStateTemplate = {
 	'price': ''
 }
 
-const owner = "bombaster228"
+const owner = "school1"
 
 const config = {
 	'storageName': 'userData',
-	'baseUrl': 'http://localhost:5001',
-	'flaskUrl': 'http://localhost:5000',
+	'baseUrl': 'http://crowdskills-blockchain.info:80',
+	'flaskUrl': 'http://crowdskills-blockchain.info:81',
+	// 'baseUrl': 'http://localhost:5001',
+	// 'flaskUrl': 'http://localhost:5001',
 	'paymentUrlTemplate': `https://cwd.global/shopping/payment?to_name=${owner}&amount=`,
 	'regSteps': [
 		'account',
@@ -47,12 +49,12 @@ const config = {
 		'password': ''
 	},
 	'regStateTemplate': {
-		'blockchainAccount': 'bombaster322',
+		'blockchainAccount': '',
 		'blockchainId': '',
 		'code': '',
-		'password': '12345678910',
-		'confirmPassword': '12345678910',
-		'telegram': '@oue',
+		'password': '',
+		'confirmPassword': '',
+		'telegram': '',
 	},
 	'createCourseStateTemplate': {
 		'keyword': '',

@@ -64,14 +64,28 @@
 @media (max-width: 1550px) {
     .hello__image {
         width: 35%;
+        transform: translate(0, -130px);
+    }
+    .hello__descriptions {
+        width: 70%;
     }
 }
 
 @media (max-width: 1350px) {
     .hello__image {
+        width: 30%;
+        transform: translate(20px, -80px);
+    }
+    /*.hello__descriptions {*/
+    /*    width: 80%;*/
+    /*}*/
+}
+
+@media (max-width: 650px) {
+    .hello__image {
         display: none;
     }
     .hello__descriptions {
-        width: 80%;
+        width: 100%;
     }
 }

@@ -40,7 +40,7 @@ const ForgotPage = ({addition: {isLoading}, form, fillForm, login, clearForm, th
 	return (
 		<>
 			<div className="header">
-				<img className='header__img' src={`${theme}-images/logo-main.png`} alt="logo"/>
+				<img className='header__img' src={`${theme}-images/logo-auth.png`} alt="logo"/>
 				<h1 className='auth-form__title'>Забыли пароль</h1>
 			</div>
 			{layout}

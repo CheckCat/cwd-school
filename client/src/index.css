@@ -12,6 +12,10 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
+p {
+    line-height: 1.8;
+}
+
 .dark-theme {
     --background: #060606 url("dark-images/background.jpg");
     --white: #E4E4E4;
@@ -91,23 +95,11 @@ mark {
     html {
         font-size: 8px;
     }
-    .container {
-        max-width: 600px;
-    }
 }
 
-@media (max-width: 1550px) {
-    html {
-        font-size: 7px;
-    }
+@media (max-width: 1024px) {
     .container {
-        max-width: 600px;
-    }
-}
-
-@media (max-width: 1350px) {
-    .container {
-        max-width: 600px;
+        max-width: 700px;
     }
 }
 

@@ -1,10 +1,10 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const mongoose = require('mongoose')
 const config = require('config')
 const MaxOp = require('./models/MaxOp')
 const getSubs = require('./modules/getSubs')
-const {PythonShell} = require('python-shell')
 
 const app = express()
 app.use(express.json({extended: true}))
@@ -36,12 +36,8 @@ const start = async () => {
       useCreateIndex: true
     })
     app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
-    PythonShell.run('./gateway/app.py', null, err => {
-      console.log(err)
-      if(err) process.exit(1)
-    })
-    const [{maxOp}] = await MaxOp.find()
-    getSubs(maxOp)
+    // const [{maxOp}] = await MaxOp.find()
+    // getSubs(maxOp)
   } catch (e) {
     process.exit(1)
   }

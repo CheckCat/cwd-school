@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
+    gap: 3rem;
 }
 
 .auth-form__additional-wrapper {
@@ -25,13 +25,6 @@
 .auth-form__title {
     font-size: 3rem;
     text-align: center;
-}
-
-.auth-form__label {
-    display: flex;
-    flex-direction: column;
-    gap: .8rem;
-    font-size: 1.6rem;
 }
 
 .auth-form__input {
@@ -91,7 +84,7 @@
 }
 
 .auth-form__additional-elem {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-decoration: none;
     padding-bottom: 1px;
     border-bottom: 1px solid var(--main-color);
@@ -100,7 +93,7 @@
 .auth-form__button {
     box-sizing: border-box;
     width: 19.8rem;
-    height: 4rem;
+    margin-top: 20px;
     padding: 1rem 2.3rem;
     border: none;
     outline: none;
@@ -113,4 +106,24 @@
 
 .auth-form__button:hover {
     opacity: .8;
+}
+
+@media (max-width: 450px) {
+    .auth-form {
+        width: 100%;
+    }
+    .auth-form__additional-wrapper {
+        justify-content: space-around;
+    }
+    .auth-form__additional-elem {
+        font-size: 2.2rem;
+    }
+    .auth-form__input {
+        font-size: 2.6rem;
+    }
+    .auth-form__button {
+        width: 29rem;
+        padding: 1.47rem 3.38rem;
+        font-size: 2.35rem;
+    }
 }

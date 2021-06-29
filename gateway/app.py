@@ -12,7 +12,7 @@ with open('config.json') as json_data:
 app = Flask(__name__)
 app.config["MONGODB_HOST"] = config['mongoUri']
 
-cors = CORS(app, origins = [config['baseUrl'], config['baseUrl'] + ':8080'])
+cors = CORS(app, origins = [config['baseUrl'], config['baseUrl'] + ':80'])
 
 db = MongoEngine()
 db.init_app(app)
@@ -23,22 +23,21 @@ candidates = {}
 def createCode():
     data = request.json
 
-    try:
-        user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
-        if (data['isForgot']):
-            if (not user):
-                return make_response({"message": "Такого пользователя не существует!"}, 400)
-        else:
-            if (user):
-                return make_response({"message": "Такой пользователь уже существует!"}, 400)
-
-        candidates[data['blockchainAccount']] = {}
-        candidate = candidates[data['blockchainAccount']]
-        candidate['code'] = generateCode()
-        candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
-        return make_response({"ok": True}, 200)
-    except:
-        return make_response({"message": "Такого аккаунта не существует!"}, 400)
+    #try:
+    user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
+    if (data['isForgot']):
+        if (not user):
+            return make_response({"message": "Такого пользователя не существует!"}, 400)
+    else:
+        if (user):
+            return make_response({"message": "Такой пользователь уже существует!"}, 400)
+    candidates[data['blockchainAccount']] = {}
+    candidate = candidates[data['blockchainAccount']]
+    candidate['code'] = generateCode()
+    candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
+    return make_response({"ok": True}, 200)
+    #except:
+        #return make_response({"message": "Такого аккаунта не существует!"}, 400)
 
 
 
@@ -67,4 +66,4 @@ def getSubs():
 
 if __name__ == '__main__':
     from waitress import serve
-    serve(app, host=config['baseUrl'], port=8081)
+    serve(app, host=config['host'], port=config['port'])

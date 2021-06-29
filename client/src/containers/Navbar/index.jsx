@@ -18,7 +18,7 @@ export const Navbar = ({authData: {role, theme}}) => {
 			return <AdminNav theme={theme}/>
 		case 'student':
 			return (
-				<nav ref={nav} className='nav nav_closed'>
+				<nav ref={nav} className='nav'>
 					<div className='nav__burger' onClick={clickHandler}>
 						<span className='nav__burger-elem'></span>
 					</div>

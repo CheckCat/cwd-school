@@ -1,6 +1,8 @@
 {
   "baseUrl": "http://crowdskills-blockchain.info",
-  "mongoUri": "mongodb+srv://Admin:aRnicaaRnica57@cwd-skills.zsbay.mongodb.net/cwd-skills?retryWrites=true&w=majority",
-  "owner": "School1",
-  "owner_id": "65393"
+  "port": 81,
+  "host": "crowdskills-blockchain.info",
+  "mongoUri": "mongodb+srv://Admin:FXKddArklYyXXxaC@cwd-skills.zsbay.mongodb.net/cwd-skills?retryWrites=true&w=majority",
+  "owner": "school1",
+  "owner_id": "26909"
 }

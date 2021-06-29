@@ -5,6 +5,6 @@
   "baseUrl": "http://localhost:5001",
   "temporaryStorage": "temporaryStorage",
   "endPoint": "files",
-  "baseUrl": "http://localhost:5001",
+  "baseUrl": "http://localhost:3000",
   "flaskUrl": "http://localhost:5000"
 }

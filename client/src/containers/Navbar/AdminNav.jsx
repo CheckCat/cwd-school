@@ -11,7 +11,7 @@ const AdminNav = ({theme}) => {
 	}
 	
 	return (
-		<nav ref={nav} className='nav nav_closed'>
+		<nav ref={nav} className='nav'>
 			<div className='nav__burger' onClick={clickHandler}>
 				<span className='nav__burger-elem'></span>
 			</div>
@@ -23,35 +23,6 @@ const AdminNav = ({theme}) => {
 						Создать курс
 					</NavLink>
 				</li>
-				<li>
-					<NavLink className='nav__elem' to="/create">
-						<img src={`${theme}-images/main.png`} className='nav__img' alt="Создать"/>
-						Создать курс
-					</NavLink>
-				</li>
-				<li>
-					<NavLink className='nav__elem' to="/create">
-						<img src={`${theme}-images/main.png`} className='nav__img' alt="Создать"/>
-						Создать курс
-					</NavLink>
-				</li><li>
-				<NavLink className='nav__elem' to="/create">
-					<img src={`${theme}-images/main.png`} className='nav__img' alt="Создать"/>
-					Создать курс
-				</NavLink>
-			</li><li>
-				<NavLink className='nav__elem' to="/create">
-					<img src={`${theme}-images/main.png`} className='nav__img' alt="Создать"/>
-					Создать курс
-				</NavLink>
-			</li><li>
-				<NavLink className='nav__elem' to="/create">
-					<img src={`${theme}-images/main.png`} className='nav__img' alt="Создать"/>
-					Создать курс
-				</NavLink>
-			</li>
-				
-				
 				<li>
 					<NavLink className='nav__elem' to="/admin">
 						<img src={`${theme}-images/main.png`} className='nav__img' alt="Админ"/>

@@ -11,9 +11,10 @@ const VerifyCode = ({props: {setState, fillForm, form, changeHandler, isLoading,
 				code: form.code,
 				blockchainAccount: form.blockchainAccount
 			})
-			console.log(data)
-			setState(config.regSteps[2])
-			fillForm('blockchainId', data.bc_id, 'reg')
+			if(data.bc_id) {
+				setState(config.regSteps[2])
+				fillForm('blockchainId', data.bc_id, 'reg')
+			}
 		} catch (e) {
 			console.log(e)
 		}

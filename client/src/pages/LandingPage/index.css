@@ -1,4 +1,16 @@
+.first-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.header__img {
+    width: 30vh;
+}
+
 .courses-preview {
+    margin-top: 60px;
     margin-bottom: 50px;
 }
 
@@ -39,4 +51,13 @@
     color: var(--secondary-color);
 }
 
+@media(max-width: 450px) {
+    .btn-continue {
+        align-self: center;
+        margin-left: 0;
+    }
+    .btn-continue::before {
+        display: none;
+    }
+}
 
