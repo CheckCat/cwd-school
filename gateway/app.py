@@ -23,21 +23,21 @@ candidates = {}
 def createCode():
     data = request.json
 
-    #try:
-    user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
-    if (data['isForgot']):
-        if (not user):
-            return make_response({"message": "Такого пользователя не существует!"}, 400)
-    else:
-        if (user):
-            return make_response({"message": "Такой пользователь уже существует!"}, 400)
-    candidates[data['blockchainAccount']] = {}
-    candidate = candidates[data['blockchainAccount']]
-    candidate['code'] = generateCode()
-    candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
-    return make_response({"ok": True}, 200)
-    #except:
-        #return make_response({"message": "Такого аккаунта не существует!"}, 400)
+    try:
+        user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
+        if (data['isForgot']):
+            if (not user):
+                return make_response({"message": "Такого пользователя не существует!"}, 400)
+        else:
+            if (user):
+                return make_response({"message": "Такой пользователь уже существует!"}, 400)
+        candidates[data['blockchainAccount']] = {}
+        candidate = candidates[data['blockchainAccount']]
+        candidate['code'] = generateCode()
+        candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
+        return make_response({"ok": True}, 200)
+    except:
+        return make_response({"message": "Такого аккаунта не существует!"}, 400)
 
 
 
