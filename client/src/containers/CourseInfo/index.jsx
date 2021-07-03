@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 const CourseInfo = props => {
 	const {courseInfo: {title, subscriptionDescription}, isAuthenticated, toggleBuyModalWindow} = props
 	const [isOpen, setIsOpen] = useState(props.isOpen)
-	console.dir(window.innerWidth)
+
 	return (
 		<li className='course-info' style={isOpen ? {} : (window.innerWidth <= 1550 && window.innerWidth > 650) ? {height: 270} :  window.innerWidth <= 650 ? window.innerWidth <= 490 ? window.innerWidth <= 450 ? {height: 225} : {height: 370} : {height: 320} : {height: 310}}>
 			<h3 className='course-info__title'>{title}</h3>

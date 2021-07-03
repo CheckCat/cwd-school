@@ -3,7 +3,7 @@ import config from '../../config'
 import MiniLoader from "../Loader/MiniLoader";
 
 const Register = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme}}) => {
-	
+
 	const registerHandler = async (ev) => {
 		try {
 			ev.preventDefault()
@@ -21,7 +21,7 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 			console.log(e)
 		}
 	}
-	
+
 	return (
 		<form className='auth-form' onSubmit={registerHandler}>
 			{
@@ -39,7 +39,7 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 									name="password"
 									value={form.password}
 									onChange={changeHandler}
-									placeholder="Пароль"
+									placeholder="Пароль (минимум 6 символов)"
 									required/>
 							</div>
 						</div>

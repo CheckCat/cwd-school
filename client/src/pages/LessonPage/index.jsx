@@ -13,7 +13,7 @@ const LessonPage = ({courseKey, token, isLoading, theme}) => {
 	const {blockKey, lessonKey} = useParams()
 	const {location: {pathname}} = useHistory()
 	const blockUrl = pathname.slice(0, -2)
-	
+
 	const [lessonData, setLessonData] = useState({audio: [], pdf: [], text: [], timecodes: []})
 	const [images, setImages] = useState([])
 	const [audioUrl, setAudioUrl] = useState('')
@@ -22,8 +22,8 @@ const LessonPage = ({courseKey, token, isLoading, theme}) => {
 	const [frameIsOpen, setFrameIsOpen] = useState(false)
 	const [prevUrl, setPrevUrl] = useState('')
 	const [nextUrl, setNextUrl] = useState('')
-	
-	
+
+
 	const clickHandler = async ({target}) => {
 		const {value, type} = target.dataset
 		try {
@@ -45,13 +45,13 @@ const LessonPage = ({courseKey, token, isLoading, theme}) => {
 			console.log(e)
 		}
 	}
-	
+
 	const disableHandler = (event) => {
 		let notDisabled = event.target.href.split('/')
 		notDisabled = notDisabled[notDisabled.length - 1]
 		if (!notDisabled) event.preventDefault()
 	}
-	
+
 	useEffect(() => {
 		let isMounted = true
 		const fetchData = async () => {
@@ -62,7 +62,7 @@ const LessonPage = ({courseKey, token, isLoading, theme}) => {
 				const nextLessonUrl = (() => +indexLesson === data.lessonsLength ? null : `${blockUrl}/${indexLesson + 1}`)()
 				setPrevUrl(prevLessonUrl)
 				setNextUrl(nextLessonUrl)
-				
+
 				if (isMounted) {
 					setImages(await Promise.all(data.lesson.text.map(async ({title, text, image}) => {
 						const blob = await request(`${config.baseUrl}/${image}`, 'GET', null, {Authorization: `Bearer ${token}`}, 'GETFILES')
