@@ -8,21 +8,22 @@ import {changeTheme, clearForm, fillForm, login} from "../../redux/actions/auth.
 import {connect} from "react-redux";
 import ForgotRegister from "../../components/Auth/ForgotRegister";
 import Footer from "../../containers/Footer";
+import {toggleThanksIsOpen} from "../../redux/actions/service.actions";
 
-const ForgotPage = ({addition: {isLoading}, form, fillForm, login, clearForm, theme, changeTheme}) => {
+const ForgotPage = ({addition: {isLoading}, form, fillForm, login, clearForm, theme, changeTheme, toggleThanksIsOpen}) => {
 	let layout
-	
+
 	const request = useHttp()
 	const [state, setState] = useState(config.regSteps[0])
-	
+
 	const changeHandler = ({target: {name, value}}) => {
 		fillForm(name, value, 'reg')
 	}
-	
+
 	const props = {
-		form, fillForm, isLoading, login, request, changeHandler, setState, clearForm, isForgot: true, changeTheme
+		form, fillForm, isLoading, login, request, changeHandler, setState, clearForm, isForgot: true, changeTheme, toggleThanksIsOpen
 	}
-	
+
 	switch (state) {
 		case 'account':
 			layout = <CreateCode props={props}/>
@@ -36,7 +37,7 @@ const ForgotPage = ({addition: {isLoading}, form, fillForm, login, clearForm, th
 		default:
 			return
 	}
-	
+
 	return (
 		<>
 			<div className="header">
@@ -47,7 +48,7 @@ const ForgotPage = ({addition: {isLoading}, form, fillForm, login, clearForm, th
 			<Footer/>
 		</>
 	)
-	
+
 }
 
 const mapStateToProps = ({addition, regForm, transferState, authData: {theme}}) => ({
@@ -55,7 +56,7 @@ const mapStateToProps = ({addition, regForm, transferState, authData: {theme}}) 
 })
 
 const mapDispatchToProps = {
-	login, fillForm, clearForm, changeTheme
+	login, fillForm, clearForm, changeTheme, toggleThanksIsOpen
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPage)

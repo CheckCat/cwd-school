@@ -8,16 +8,16 @@ import {connect} from "react-redux";
 import useHttp from "../../hooks/http.hook";
 import config from "../../config";
 
-const StudentNav = ({authData: {name, token, theme}, coursesData, logout, changeTheme}) => {
+const StudentNav = ({authData: {name, token, theme}, closeHandler, coursesData, logout, changeTheme}) => {
 	const history = useHistory()
 	const request = useHttp()
-	
+
 	const logoutHandler = event => {
 		event.preventDefault()
 		logout()
 		history.push('/')
 	}
-	
+
 	const clickHandler = async () => {
 		try {
 			const newTheme = theme === 'dark' ? 'light' : 'dark'
@@ -28,7 +28,7 @@ const StudentNav = ({authData: {name, token, theme}, coursesData, logout, change
 		  console.log(e)
 		}
 	}
-	
+
 	return (
 		<>
 			<li className='nav__logo'>
@@ -56,9 +56,9 @@ const StudentNav = ({authData: {name, token, theme}, coursesData, logout, change
 					</li>
 				</ul>
 			</li>
-			<LandingNav theme={theme}/>
+			<LandingNav closeHandler={closeHandler} theme={theme}/>
 			<li>
-				<NavLink className='nav__elem' to="/buy">
+				<NavLink onClick={closeHandler} className='nav__elem' to="/buy">
 					<img src={`${theme}-images/buy.png`} className='nav__img' alt="Подписки"/>
 					Купить курс
 				</NavLink>
@@ -81,7 +81,7 @@ const StudentNav = ({authData: {name, token, theme}, coursesData, logout, change
 									const blockKey = keyword
 									return (
 										<li key={getRandomKey()} className='course-nav__elem'>
-											<NavLink to={`/courses/${courseKey}/${blockKey}`}>
+											<NavLink onClick={closeHandler} to={`/courses/${courseKey}/${blockKey}`}>
 												{title}
 											</NavLink>
 										</li>

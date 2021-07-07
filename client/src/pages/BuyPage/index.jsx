@@ -14,8 +14,6 @@ const BuyPage = ({coursesInfo, isAuthenticated}) => {
 			<ul className='courses-info buy-course__courses-info'>
 				{coursesInfo.map(c => <CourseInfo key={getRandomKey()} isOpen={isAuthenticated}
 																					isAuthenticated={isAuthenticated} courseInfo={c}/>)}
-				{coursesInfo.map(c => <CourseInfo key={getRandomKey()} isOpen={isAuthenticated}
-																					isAuthenticated={isAuthenticated} courseInfo={c}/>)}
 			</ul>
 			<Footer/>
 		</div>

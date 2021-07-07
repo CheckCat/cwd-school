@@ -6,6 +6,7 @@ const login = require('./login')
 const register = require('./register')
 const forgotChangePass = require('./forgotChangePass')
 const changeTheme = require('./changeTheme')
+const closeThanks = require('./closeThanksModal')
 const router = Router()
 
 router.post(
@@ -40,6 +41,12 @@ router.post(
   [],
   auth,
   changeTheme
+)
+router.post(
+    '/thanks',
+    [],
+    auth,
+    closeThanks
 )
 
 module.exports = router

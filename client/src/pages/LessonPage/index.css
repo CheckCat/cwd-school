@@ -100,6 +100,13 @@
             rgba(64, 52, 52, 0.1));
 }
 
+.light-theme .timecodes {
+    background: radial-gradient(
+            100% 100% at 101% -17%,
+            rgba(0, 83, 70, 0.29),
+            rgba(64, 52, 52, 0.1));;
+}
+
 .timecodes__elem {
     display: flex;
     flex-direction: column;

@@ -7,7 +7,8 @@ const schema = new Schema({
   blockchainId: {type: String, required: true, unique: true},
   subscriptions: [{course: Types.ObjectId, timeframe: Date}],
   role: {type: String, required: true},
-  theme: {type: String, required: true}
+  theme: {type: String, required: true},
+  isThanks: {type: Boolean}
 }, {versionKey: false})
 
 module.exports = model('User', schema)

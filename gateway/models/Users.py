@@ -9,6 +9,7 @@ class Users(db.Document):
     blockchainId = db.StringField()
     subscriptions = db.ListField()
     role = db.StringField()
+    isThanks = db.BooleanField()
     theme = db.StringField()
 
 

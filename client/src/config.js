@@ -34,10 +34,10 @@ const owner = "school1"
 
 const config = {
 	'storageName': 'userData',
-	// 'baseUrl': 'http://crowdskills-blockchain.info:80',
-	// 'flaskUrl': 'http://crowdskills-blockchain.info:81',
-	'baseUrl': 'http://localhost:5001',
-	'flaskUrl': 'http://localhost:5001',
+	'baseUrl': 'http://crowdskills-blockchain.info:80',
+	'flaskUrl': 'http://crowdskills-blockchain.info:81',
+	// 'baseUrl': 'http://localhost:5001',
+	// 'flaskUrl': 'http://localhost:5001',
 	'paymentUrlTemplate': `https://cwd.global/shopping/payment?to_name=${owner}&amount=`,
 	'regSteps': [
 		'account',

@@ -2,18 +2,19 @@ import React from 'react'
 import config from '../../config'
 import MiniLoader from "../Loader/MiniLoader";
 
-const Register = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme}}) => {
+const ForgotRegister = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme, toggleThanksIsOpen}}) => {
 
 	const registerHandler = async (ev) => {
 		try {
 			ev.preventDefault()
 			if (form.password !== form.confirmPassword) return
-			const {token, role, name, theme} = await request(`${config.baseUrl}/api/auth/forgot_change_pass`, 'POST', {
+			const {token, role, name, theme, thanksModalIsOpen} = await request(`${config.baseUrl}/api/auth/forgot_change_pass`, 'POST', {
 				blockchainAccount: form.blockchainAccount,
 				blockchainId: form.blockchainId,
 				password: form.password
 			})
 			login(token, role, name)
+			toggleThanksIsOpen(thanksModalIsOpen)
 			changeTheme(theme)
 			clearForm('reg')
 		} catch (e) {
@@ -62,4 +63,4 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 	);
 }
 
-export default Register
+export default ForgotRegister

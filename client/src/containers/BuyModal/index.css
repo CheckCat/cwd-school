@@ -31,10 +31,12 @@
 
 .subs-modal__title {
     font-size: 4.5rem;
+    color: var(--white);
 }
 
 .subs-modal__subtitle {
     font-size: 3.8rem;
+    color: var(--white);
 }
 
 .subs-modal__list {
@@ -50,7 +52,7 @@
     justify-content: space-between;
     border-radius: 12px;
     padding: 6px 22px;
-    background: var(--main-color);
+    background: var(--white);
     font-size: 2.6rem;
     font-family: 'Roboto-Medium';
     cursor: pointer;
@@ -69,15 +71,15 @@
 }
 
 .subs-modal__text {
-    color: var(--secondary-color);
+    color: var(--black);
 }
 
 .subs-modal__close-btn {
     position: absolute;
     top: 20px;
-    right: 5rem;
-    width: 20px;
-    height: 20px;
+    right: 3rem;
+    width: 30px;
+    height: 30px;
     border: none;
     background: transparent;
     cursor: pointer;
@@ -86,9 +88,11 @@
 .subs-modal__close-btn::before, .subs-modal__close-btn::after {
     content: '';
     position: absolute;
+    top: 48%;
+    left: -11%;
     width: 4rem;
     height: 2px;
-    background: var(--main-color);
+    background: var(--white);
 }
 
 .subs-modal__close-btn::before {
@@ -108,6 +112,11 @@
     font-size: 1.8rem;
     font-family: 'Roboto-Bold';
     text-decoration: none;
+    color: var(--white);
+}
+
+.light-theme .subs-modal__continue-btn {
+    box-shadow: 0 0 9px 0 var(--black);
 }
 
 .subs-modal__continue-btn:hover {

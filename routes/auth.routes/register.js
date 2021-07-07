@@ -8,26 +8,26 @@ const {validationResult} = require('express-validator')
 module.exports = async (req, res) => {
 	try {
 		const errors = validationResult(req)
-		
+
 		if (!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
 				message: 'Некорректные данные при попытке регистрации!'
 			})
 		}
-		
+
 		let {password, telegram, blockchainAccount, blockchainId} = req.body
-		
+
 		const candidate = await User.findOne({blockchainAccount})
-		
+
 		if (candidate) {
 			return res.status(400).json({message: 'Такой пользователь уже существует!'})
 		}
-		
+
 		if (telegram[0] != "@") {
 			telegram = '@' + telegram
 		}
-		
+
 		const hashedPassword = await bcrypt.hash(password, 12)
 		const user = new User({
 			password: hashedPassword,
@@ -36,18 +36,19 @@ module.exports = async (req, res) => {
 			blockchainId,
 			subscriptions: [],
 			role: 'student',
+			isThanks: false,
 			theme: 'dark'
 		})
-		
-		
+
+
 		await user.save()
-		
+
 		const token = jwt.sign(
 			{userId: user.id},
 			config.get('jwtSecret'),
 			{expiresIn: '1h'}
 		)
-		
+
 		return res.status(201).json({
 			message: 'Вы успешно зарегистрировались!',
 			token,
@@ -55,7 +56,7 @@ module.exports = async (req, res) => {
 			role: user.role,
 			name: user.blockchainAccount
 		})
-		
+
 	} catch (e) {
 		console.log(e)
 		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!'})

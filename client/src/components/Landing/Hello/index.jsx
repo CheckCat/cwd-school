@@ -24,7 +24,7 @@ const Hello = ({isAuthenticated, theme}) => {
 				Если вы на сайте впервые вам необходимо авторизироваться.
 			</div>}
 			<Link className='btn-continue hello__btn-continue'
-						to={isAuthenticated ? '/buy' : '/auth'}>{isAuthenticated ? 'Приобрести' : 'Авторизоваться'}</Link>
+						to={isAuthenticated ? '/buy' : '/auth'}>{isAuthenticated ? 'Оформить подписку' : 'Авторизоваться'}</Link>
 		</section>
 	);
 }

@@ -14,6 +14,13 @@ export const Navbar = ({authData: {role, theme}}) => {
 		nav.current.classList.toggle('nav_closed')
 	}
 
+	const closeHandler = ({target}) => {
+		if(target.classList.contains('active') || window.innerWidth > 1550) return
+		clickHandler({
+			target: document.querySelector('.nav__burger-elem')
+		})
+	}
+
 	switch (role) {
 		case 'admin':
 			return <AdminNav theme={theme}/>
@@ -26,7 +33,7 @@ export const Navbar = ({authData: {role, theme}}) => {
 						<span className='nav__burger-elem nav__burger-elem_bottom'></span>
 					</div>
 					<ul className='nav__list'>
-						<StudentNav/>
+						<StudentNav closeHandler={closeHandler}/>
 					</ul>
 				</nav>
 			)

@@ -51,18 +51,22 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    border: 1px solid var(--landing-border-color);
     border-radius: 20px;
-    background: var(--first-gradient-color);
 }
 
 .advantages__description {
     align-self: flex-start;
-    background: var(--first-gradient-color);
     font-size: 2.2rem;
     padding: 17px;
 }
 
+.dark-theme .advantages__descriptions, .dark-theme .advantages__description {
+    background: var(--first-gradient-color);
+}
+
 .advantages__description:not(.advantages__descriptions .advantages__description) {
+    border: 1px solid var(--landing-border-color);
     border-radius: 25px;
 }
 

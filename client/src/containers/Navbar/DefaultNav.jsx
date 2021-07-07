@@ -13,6 +13,13 @@ const DefaultNav = ({theme, changeTheme}) => {
 		nav.current.classList.toggle('nav_closed')
 	}
 
+	const closeHandler = ({target}) => {
+		if(target.classList.contains('active') || window.innerWidth > 1550) return
+		clickHandler({
+			target: document.querySelector('.nav__burger-elem')
+		})
+	}
+
 	const toggleHandler = () => {
 		const newTheme = theme === 'dark' ? 'light' : 'dark'
 		changeTheme(newTheme)
@@ -36,7 +43,7 @@ const DefaultNav = ({theme, changeTheme}) => {
 				<li>
 					<ul className='nav__list nav__auth'>
 						<li>
-							<NavLink className='nav__elem' to="/auth">
+							<NavLink onClick={closeHandler} className='nav__elem' to="/auth">
 								<img src={`${theme}-images/login.png`} className='nav__img' alt="Auth"/>
 								Личный кабинет
 
@@ -50,7 +57,7 @@ const DefaultNav = ({theme, changeTheme}) => {
 						</li>
 					</ul>
 				</li>
-				<LandingNav theme={theme}/>
+				<LandingNav closeHandler={closeHandler} theme={theme}/>
 			</ul>
 		</nav>)
 }

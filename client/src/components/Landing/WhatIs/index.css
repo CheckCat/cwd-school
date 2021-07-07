@@ -20,7 +20,6 @@
     align-self: flex-start;
     border-radius: 10px;
     padding: 1rem;
-    background: var(--first-gradient-color);
     font-size: 6.2rem;
     font-family: 'Roboto-Bold';
     color: var(--main-green-color);
@@ -47,7 +46,14 @@
     flex-direction: column;
     border-radius: 30px;
     padding: 34px 48px;
+}
+
+.dark-theme .what-is__title, .dark-theme .what-is__container{
     background: var(--first-gradient-color);
+}
+
+.light-theme .what-is__container {
+    border: 1px solid var(--landing-border-color);
 }
 
 .what-is__container::before {

@@ -21,11 +21,12 @@ const getSubs = async max_op => {
 			await Promise.all(data.subscriptions.map(async ({buyer, amount}) => {
 					const user = await User.findOne({blockchainId: buyer})
 					if (!user) return
-					
+
 					const courses = await Course.find()
 					const course = courses.find(c => c.subscriptionPrices.find(({price}) => price === +amount))
 					if (!course) return
-					
+
+					user.isThanks = true
 					const duration = course.subscriptionPrices.find(({price}) => price === +amount).duration
 					let isEmpty = true
 					await Promise.all(user.subscriptions.map(async (sub, index) => {
@@ -44,7 +45,7 @@ const getSubs = async max_op => {
 						}
 						return
 					}, []))
-					
+
 					if (isEmpty) {
 						user.subscriptions.push({course: course.id, timeframe: new Date().setMonth(new Date().getMonth() + duration)})
 						user.markModified('subscriptions')
@@ -54,13 +55,13 @@ const getSubs = async max_op => {
 				}
 			))
 		}
-		
+
 		if (data.max_op !== max_op) {
 			const maxOpModel = await MaxOp.findOne({maxOp: max_op})
 			maxOpModel.maxOp = data.max_op
 			await maxOpModel.save()
 		}
-		
+
 		setTimeout(getSubs, 61000, data.max_op)
 	} catch (e) {
 		console.log(e)

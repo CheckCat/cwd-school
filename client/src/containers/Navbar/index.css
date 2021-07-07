@@ -156,6 +156,10 @@
     color: var(--main-green-color);
 }
 
+.light-theme .course-nav__active-field_active::marker {
+    color: #12b165;
+}
+
 .course-nav__active-field_disactive::marker {
     color: var(--danger-color);
 }

@@ -19,6 +19,7 @@ p {
 .dark-theme {
     --background: #060606 url("dark-images/background.jpg");
     --white: #E4E4E4;
+    --black: #151515;
     --main-color: #E4E4E4;
     --secondary-color: #151515;
     --main-green-color: #2dff9a;
@@ -50,14 +51,16 @@ p {
 .light-theme {
     --background: #FFFFFF;
     --white: #E4E4E4;
+    --black: #151515;
     --main-color: #151515;
     --secondary-color: #E4E4E4;
-    --main-green-color: #438945;
-    --secondary-green-color: #438945;
+    --main-green-color: #005346;
+    --secondary-green-color: #005346;
     --opposite-main-green-color: #1E725E;
     --danger-color: #FF307A;
-    --first-gradient-color: var(--white);
-    --second-gradient-color: var(--white);
+    --first-gradient-color: #38A897;
+    --second-gradient-color: #095B4F;
+    --landing-border-color: #C4C4C4;
     --close-color: #9C1A1C;
     --mini-logo: url('light-images/mini-logo.png');
     --what-is-radial: url('light-images/what-is_radial.png');

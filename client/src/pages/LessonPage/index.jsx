@@ -88,7 +88,7 @@ const LessonPage = ({courseKey, token, isLoading, theme}) => {
 					<Loader/>
 					:
 					<>
-						<Link className='switch switch_back switch_back-to-block' to='/'>Назад</Link>
+						<Link className='switch switch_back switch_back-to-block' to={blockUrl}>Назад</Link>
 						<div className='lesson__title-wrapper'>
 							<h1 className='lesson__header'>{lessonData.title}</h1>
 							<h2 className='lesson__description'>{lessonData.description}</h2>

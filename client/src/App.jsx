@@ -10,15 +10,16 @@ import config from './config.js'
 import {setCoursesInfo, setDurationInfo} from "./redux/actions/course.actions";
 import BuyModal from "./containers/BuyModal";
 import ModalWindow from "./components/ModalWindow";
+import ThanksModal from "./containers/ThanksModal";
 
 const {storageName} = config
 
 
-const App = ({authData, addition: {isReady, message}, coursesData, tryAuth, setCoursesInfo, setDurationInfo, isOpen}) => {
+const App = ({authData, addition: {isReady, message, thanksModalIsOpen}, coursesData, tryAuth, setCoursesInfo, setDurationInfo, isOpen}) => {
 	const request = useHttp()
 	const [routes, setRoutes] = useState(<></>)
 	const tryAuthCallback = useCallback(tryAuth, [tryAuth])
-	
+
 	useEffect(() => {
 		const antipodes = {
 			dark: 'light',
@@ -27,7 +28,7 @@ const App = ({authData, addition: {isReady, message}, coursesData, tryAuth, setC
 		document.querySelector('html').classList.remove(`${antipodes[authData.theme]}-theme`)
 		document.querySelector('html').classList.add(`${authData.theme}-theme`)
 	}, [authData.theme])
-	
+
 	useEffect(() => {
 		const getCourseInfo = async () => {
 			try {
@@ -43,7 +44,7 @@ const App = ({authData, addition: {isReady, message}, coursesData, tryAuth, setC
 	useEffect(() => {
 		setRoutes(chooseRoutes(authData.role, coursesData))
 	}, [authData.role, coursesData])
-	
+
 	useEffect(() => {
 		try {
 			const {token} = JSON.parse(localStorage.getItem(storageName)) || {}
@@ -52,7 +53,7 @@ const App = ({authData, addition: {isReady, message}, coursesData, tryAuth, setC
 			console.log(e)
 		}
 	}, [tryAuthCallback, request])
-	
+
 	if (!isReady) {
 		return (
 			<div className={authData.theme ? `${authData.theme}-theme` : 'dark-theme'}>
@@ -60,7 +61,7 @@ const App = ({authData, addition: {isReady, message}, coursesData, tryAuth, setC
 			</div>
 		)
 	}
-	
+
 	return (
 		<Router>
 			<Navbar/>
@@ -68,6 +69,7 @@ const App = ({authData, addition: {isReady, message}, coursesData, tryAuth, setC
 				{routes}
 			</div>
 			{isOpen && <BuyModal/>}
+			{thanksModalIsOpen && <ThanksModal token={authData.token}/>}
 			{message.message && <ModalWindow message={message}/>}
 		</Router>
 	);

@@ -12,7 +12,6 @@
     margin-top: 120px;
     padding: 30px 44px;
     padding-top: 0;
-    background: var(--first-gradient-color);
 }
 
 .ask__title {
@@ -21,10 +20,17 @@
     border-radius: 25px;
     padding: 12px 32px;
     transform: translateY(-50%);
-    background: var(--first-gradient-color);
     font-size: 6.2rem;
     font-family: 'Roboto-Bold';
     color: var(--main-green-color);
+}
+
+.dark-theme .ask__title, .dark-theme .ask__container {
+    background: var(--first-gradient-color);
+}
+
+.light-theme .ask__title {
+    border: 1px solid var(--landing-border-color);
 }
 
 .ask__wrapper {

@@ -1,6 +1,6 @@
-import {CLEAR_ERROR, ERROR, LOADING, READY_SHOW} from "../types";
+import {CLEAR_ERROR, ERROR, LOADING, READY_SHOW, TOGGLE_THANKS_IS_OPEN} from "../types";
 
-export const serviceReducer = (state = {isReady: false, isLoading: false, message: {}}, action) => {
+export const serviceReducer = (state = {isReady: false, isLoading: false, message: {}, thanksModalIsOpen: false}, action) => {
 	switch (action.type) {
 		case READY_SHOW:
 			return {...state, isReady: true}
@@ -10,6 +10,8 @@ export const serviceReducer = (state = {isReady: false, isLoading: false, messag
 			return {...state, message: action.payload}
 		case CLEAR_ERROR:
 			return {...state, message: {}}
+		case TOGGLE_THANKS_IS_OPEN:
+			return {...state, thanksModalIsOpen: action.payload}
 		default:
 			return state
 	}

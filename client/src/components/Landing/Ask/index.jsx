@@ -47,7 +47,7 @@ const Ask = ({isAuthenticated}) => {
 				</div>
 			</div>
 			<Link className='btn-continue ask__btn-continue'
-						to={isAuthenticated ? '/buy' : '/auth'}>{isAuthenticated ? 'Приобрести' : 'Авторизоваться'}</Link>
+						to={isAuthenticated ? '/buy' : '/auth'}>{isAuthenticated ? 'Оформить подписку' : 'Авторизоваться'}</Link>
 		</section>
 	);
 }

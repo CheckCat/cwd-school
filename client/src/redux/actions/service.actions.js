@@ -1,4 +1,4 @@
-import {CLEAR_ERROR, ERROR, LOADING, READY_SHOW} from "../types";
+import {CLEAR_ERROR, ERROR, LOADING, READY_SHOW, TOGGLE_THANKS_IS_OPEN} from "../types";
 
 export const readyShow = () => {
 	return {
@@ -16,6 +16,13 @@ export const setError = (message, isError) => {
 	return {
 		type: ERROR,
 		payload: {message, isError}
+	}
+}
+
+export const toggleThanksIsOpen = isOpen => {
+	return {
+		type: TOGGLE_THANKS_IS_OPEN,
+		payload: isOpen
 	}
 }
 

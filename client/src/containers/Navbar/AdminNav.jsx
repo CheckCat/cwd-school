@@ -11,6 +11,13 @@ const AdminNav = ({theme}) => {
 		nav.current.classList.toggle('nav_closed')
 	}
 
+	const closeHandler = ({target}) => {
+		if(target.classList.contains('active') || window.innerWidth > 1550) return
+		clickHandler({
+			target: document.querySelector('.nav__burger-elem')
+		})
+	}
+
 	return (
 		<nav ref={nav} className='nav'>
 			<div className='nav__burger nav__burger_opened' onClick={clickHandler}>
@@ -19,21 +26,21 @@ const AdminNav = ({theme}) => {
 				<span className='nav__burger-elem nav__burger-elem_bottom'></span>
 			</div>
 			<ul className='nav__list'>
-				<StudentNav/>
+				<StudentNav closeHandler={closeHandler}/>
 				<li>
-					<NavLink className='nav__elem' to="/create">
+					<NavLink onClick={closeHandler} className='nav__elem' to="/create">
 						<img src={`${theme}-images/main.png`} className='nav__img' alt="Создать"/>
 						Создать курс
 					</NavLink>
 				</li>
 				<li>
-					<NavLink className='nav__elem' to="/admin">
+					<NavLink onClick={closeHandler} className='nav__elem' to="/admin">
 						<img src={`${theme}-images/main.png`} className='nav__img' alt="Админ"/>
 						Админ панель
 					</NavLink>
 				</li>
 				<li>
-					<NavLink className='nav__elem' to="/admin/courses">
+					<NavLink onClick={closeHandler} className='nav__elem' to="/admin/courses">
 						<img src={`${theme}-images/main.png`} className='nav__img' alt="Курсы"/>
 						Админ панель курсов
 					</NavLink>

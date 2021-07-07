@@ -8,19 +8,21 @@ import config from "../../config";
 import {connect} from "react-redux";
 import Footer from "../../containers/Footer";
 import MiniLoader from "../../components/Loader/MiniLoader";
+import {toggleThanksIsOpen} from "../../redux/actions/service.actions";
 
-const AuthPage = ({addition: {isLoading}, theme, form, fillForm, login, clearForm, pointOutData, changeTheme}) => {
+const AuthPage = ({addition: {isLoading}, theme, form, fillForm, login, clearForm, pointOutData, changeTheme, toggleThanksIsOpen}) => {
 	const request = useHttp()
-	
+
 	const changeHandler = ({target: {name, value}}) => {
 		fillForm(name, value, 'auth')
 	}
-	
+
 	const loginHandler = async (ev) => {
 		try {
 			ev.preventDefault()
 			const data = await request(`${config.baseUrl}/api/auth/login`, 'POST', {...form})
 			login(data.token, data.role, data.name)
+			toggleThanksIsOpen(data.thanksModalIsOpen)
 			changeTheme(data.theme)
 			pointOutData(data.courses)
 			clearForm('auth')
@@ -28,14 +30,14 @@ const AuthPage = ({addition: {isLoading}, theme, form, fillForm, login, clearFor
 			console.log(e)
 		}
 	}
-	
+
 	return (
 		<>
 			<div className="header">
 				<img className='header__img' src={`${theme}-images/logo-auth.png`} alt="logo"/>
 				<h1 className='auth-form__title'>Авторизация</h1>
 			</div>
-			
+
 			<form className='auth-form' onSubmit={loginHandler}>
 				{
 					isLoading
@@ -84,7 +86,7 @@ const mapStateToProps = ({authData: {theme}, addition, authForm, transferState})
 
 const mapDispatchToProps =
 	{
-		login, fillForm, clearForm, pointOutData, changeTheme
+		login, fillForm, clearForm, pointOutData, changeTheme, toggleThanksIsOpen
 	}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthPage)
