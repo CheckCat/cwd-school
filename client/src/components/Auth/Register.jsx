@@ -1,13 +1,19 @@
 import React from 'react'
 import config from '../../config'
 import MiniLoader from "../Loader/MiniLoader";
+import {clearError, setError} from "../../redux/actions/service.actions";
+import {connect} from "react-redux";
 
-const Register = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme}}) => {
+const Register = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme}, setError, clearError}) => {
 
 	const registerHandler = async (ev) => {
 		try {
 			ev.preventDefault()
-			if (form.password !== form.confirmPassword) return
+			if (form.password !== form.confirmPassword) {
+				setError('Пароли не совпадают!', true)
+				setTimeout(() => clearError(), 3000)
+				return
+			}
 			const {token, role, name, theme} = await request(`${config.baseUrl}/api/auth/register`, 'POST', {
 				blockchainAccount: form.blockchainAccount,
 				blockchainId: form.blockchainId,
@@ -18,7 +24,6 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 			changeTheme(theme)
 			clearForm('reg')
 		} catch (e) {
-			console.log(e)
 		}
 	}
 
@@ -39,7 +44,7 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 									name="password"
 									value={form.password}
 									onChange={changeHandler}
-									placeholder="Пароль (минимум 6 символов)"
+									placeholder="Пароль (минимум 8 символов)"
 									required/>
 							</div>
 						</div>
@@ -65,7 +70,7 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 									name="telegram"
 									value={form.telegram}
 									onChange={changeHandler}
-									placeholder="Ваш Telegram"
+									placeholder="Ваш ID в Telegram"
 									required/>
 							</div>
 						</div>
@@ -75,5 +80,8 @@ const Register = ({props: {form, changeHandler, login, clearForm, isLoading, req
 		</form>
 	);
 }
-
-export default Register
+const mapDispatchToProps = {
+	setError,
+	clearError,
+}
+export default connect(() => ({}), mapDispatchToProps)(Register);

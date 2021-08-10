@@ -4,8 +4,8 @@ import {loading, setError, clearError} from "../redux/actions/service.actions";
 
 const useHttp = () => {
 	const dispatch = useDispatch()
-	
-	const request = useCallback(async (url, method = 'GET', body = null, headers = {}, type, offLoader = false) => {
+
+	const request = useCallback(async (url, method = 'GET', body = null, headers = {}, type, offLoader = false, onMessage = true) => {
 		!offLoader && dispatch(loading())
 		try {
 			if (body && type !== 'SENDFILES') {
@@ -18,14 +18,21 @@ const useHttp = () => {
 				case 'GETFILES':
 					data = await response.blob()
 					break
+				case 'GETAUDIOFILES':
+					data = await response.arrayBuffer()
+					break
 				default:
 					data = await response.json()
 			}
-			
+
 			if (!response.ok) {
 				!offLoader && dispatch(loading())
-				dispatch(setError(data.message || 'Что-то пошло не так!', true))
-				setTimeout(() => dispatch(clearError()), 3000)
+				// Для дебага с бэка
+				// if(data.error) console.error(data.error)
+				if(onMessage) {
+					dispatch(setError(data.message || 'Что-то пошло не так!', true))
+					setTimeout(() => dispatch(clearError()), 3000)
+				}
 				return
 			}
 			if (data.message) {
@@ -33,15 +40,17 @@ const useHttp = () => {
 			}
 			!offLoader && dispatch(loading())
 			setTimeout(() => dispatch(clearError()), 3000)
-			
+
 			return data
 		} catch (e) {
 			!offLoader && dispatch(loading())
-			dispatch(setError('Что-то пошло не так!', true))
-			setTimeout(() => dispatch(clearError()), 3000)
+			if(onMessage) {
+				dispatch(setError('Что-то пошло не так!', true))
+				setTimeout(() => dispatch(clearError()), 3000)
+			}
 		}
 	}, [dispatch])
-	
+
 	return request
 }
 

@@ -1,0 +1,16 @@
+.footnote {
+    margin-bottom: 1rem;
+}
+
+.footnote p{
+    font-size: 1.4rem;
+    color: var(--main-green-color);
+}
+
+.delete-file {
+    cursor: pointer;
+}
+
+.delete-file:hover {
+    color: red;
+}

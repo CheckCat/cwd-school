@@ -23,6 +23,6 @@ module.exports = async (req, res, next) => {
 
 		next()
 	} catch (e) {
-		return res.status(400).json({message: 'Что-то пошло не так при идентификации'})
+		return res.status(400).json({message: 'Что-то пошло не так при идентификации, попробуйте перезайти на аккаунт!', error: e})
 	}
 }

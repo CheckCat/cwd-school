@@ -6,11 +6,15 @@ import {toggleBuyModalWindow} from "../../redux/actions/course.actions";
 import {connect} from "react-redux";
 
 const CourseInfo = props => {
-	const {courseInfo: {title, subscriptionDescription}, isAuthenticated, toggleBuyModalWindow} = props
+	const {courseInfo: {title, subscriptionDescription}, isAuthenticated, toggleBuyModalWindow, index} = props
 	const [isOpen, setIsOpen] = useState(props.isOpen)
+	const [isRotated, setIsRotated] = useState(window.orientation !== 0)
+
+	window.addEventListener('resize', () => setIsRotated(index === 0 && window.orientation !== 0))
 
 	return (
-		<li className='course-info' style={isOpen ? {} : (window.innerWidth <= 1550 && window.innerWidth > 650) ? {height: 270} :  window.innerWidth <= 650 ? window.innerWidth <= 490 ? window.innerWidth <= 450 ? {height: 225} : {height: 370} : {height: 320} : {height: 310}}>
+		<li className={isRotated ? 'course-info_rotated course-info' : 'course-info'}
+			style={isOpen ? {} : (window.innerWidth <= 1550 && window.innerWidth > 650) ? {height: 270} : window.innerWidth <= 650 ? window.innerWidth <= 490 ? window.innerWidth <= 450 ? {height: 225} : {height: 370} : {height: 320} : {height: 310}}>
 			<h3 className='course-info__title'>{title}</h3>
 			<div className="course-info__wrapper">
 				<p className="course-info__text">Вам порекомендовали школу?</p>
@@ -36,13 +40,14 @@ const CourseInfo = props => {
 				{isAuthenticated
 					?
 					<button className='btn-continue course-info__btn-continue'
-									onClick={() => toggleBuyModalWindow(title)}>Оформить подписку</button>
+							onClick={() => toggleBuyModalWindow(title)}>Оформить подписку</button>
 					:
-					<Link className='btn-continue course-info__btn-continue' to='/auth'>Авторизоваться</Link>
+					<Link onClick={() => window.scrollTo(0, 0)} className='btn-continue course-info__btn-continue' to='/auth'>Авторизоваться</Link>
 				}
 			</div>
 			{!isAuthenticated &&
-			<button className='course-info__toggle' onClick={() => setIsOpen(prev => !prev)}>Подробнее</button>}
+			<button className='course-info__toggle'
+					onClick={() => setIsOpen(prev => !prev)}>{isOpen ? 'Спрятать' : 'Подробнее'}</button>}
 		</li>
 	);
 }

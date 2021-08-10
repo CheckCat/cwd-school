@@ -7,15 +7,17 @@ import {connect} from "react-redux";
 
 const BuyPage = ({coursesInfo, isAuthenticated}) => {
 	return (
-		<div className='buy-course'>
-			<div className="buy-course__title-wrapper">
-				<h1 className='buy-course__title'>Доступные курсы</h1>
+		<div className="container">
+			<div className='buy-course'>
+				<div className="buy-course__title-wrapper">
+					<h1 className='buy-course__title'>Доступные курсы</h1>
+				</div>
+				<ul className='courses-info buy-course__courses-info'>
+					{coursesInfo.map(c => <CourseInfo key={getRandomKey()} isOpen={isAuthenticated}
+																						isAuthenticated={isAuthenticated} courseInfo={c}/>)}
+				</ul>
+				<Footer/>
 			</div>
-			<ul className='courses-info buy-course__courses-info'>
-				{coursesInfo.map(c => <CourseInfo key={getRandomKey()} isOpen={isAuthenticated}
-																					isAuthenticated={isAuthenticated} courseInfo={c}/>)}
-			</ul>
-			<Footer/>
 		</div>
 	);
 }

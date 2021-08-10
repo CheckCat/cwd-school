@@ -1,19 +1,31 @@
 const {Router} = require('express')
+const router = Router()
 
-const Course = require('../../models/Course')
-const Block = require('../../models/Block')
-const Lesson = require('../../models/Lesson')
-const User = require('../../models/User')
 const auth = require('../../middleware/auth.middleware')
 const identification = require('../../middleware/identification.middleware')
 const fileWorker = require('../../middleware/file.middleware')
+const editFileWorker = require('../../middleware/edit.file.middleware')
 const checkCourse = require('../../middleware/course.middleware')
 const upload = require('../../middleware/upload.middleware')
-const create = require('./create')
+const editUpload = require('../../middleware/edit.upload.middleware')
+
+const createCourse = require('./createCourse')
+const createNewCourse = require('./createNewCourse')
+const deleteCourse = require('./deleteCourse')
+const editCourse = require('./editCourse')
+
+const createBlock = require('./createBlock')
+const deleteBlock = require('./deleteBlock')
+const editBlock = require('./editBlock')
+
+const createLesson = require('./createLesson')
+const deleteLesson = require('./deleteLesson')
+const editLesson = require('./editLesson')
+
 const getBlock = require('./getBlock')
 const getLesson = require('./getLesson')
 const getCourses = require('./getCourses')
-const router = Router()
+const getCourse = require('./getCourse')
 
 
 router.get(
@@ -22,14 +34,17 @@ router.get(
 	getCourses
 )
 router.get(
+	'/:keyword',
+	identification,
+	getCourse
+)
+router.get(
 	'/:keyword/:blockKey',
-	[],
 	auth,
 	getBlock
 )
 router.get(
 	'/:keyword/:blockKey/:lessonKey',
-	[],
 	auth,
 	getLesson
 )
@@ -40,65 +55,65 @@ router.post(
 	identification,
 	checkCourse,
 	fileWorker,
-	create
+	createCourse
+)
+
+router.post(
+	'/create_course',
+	identification,
+	createNewCourse
+)
+
+router.post(
+	'/create_block/:courseKey',
+	identification,
+	createBlock
+)
+
+router.post(
+	'/create_lesson/:courseKey/:blockKey',
+	identification,
+	createLesson
 )
 
 router.put(
-	'',
-	[],
-	// identification,
-	async (req, res) => {
-		try {
-			// body = req.body
-			// await Lesson.deleteMany({owner: body.oldKeyword})
-			// body.lessons.forEach(async el => {
-			//   if (!el.video) {
-			//     delete el.timecodes
-			//   }
-			//
-			//   const lesson = new Lesson({...el, owner: body.newKeyword})
-			//
-			//   await lesson.save()
-			// })
-			
-			// const lessons = await Lesson.find({owner: body.newKeyword})
-			const course = await Course.findOne({keyword: body.oldKeyword})
-			course.keyword = body.newKeyword
-			course.title = body.title
-			// course.lessons = lessons.map(l => l.id)
-			// course.markModified('lessons')
-			await course.save()
-			return res.status(202).json({message: 'Курс был обновлен'})
-		} catch (e) {
-			console.log(e)
-			return res.status(500).json({e: 'Что-то пошло не так'})
-		}
-	})
+	'/:courseKey',
+	identification,
+	editCourse
+)
+
+router.put(
+	'/:courseKey/:blockKey',
+	identification,
+	editBlock
+)
+
+router.put(
+	'/:courseKey/:blockKey/:index',
+	editUpload.any(),
+	editFileWorker,
+	editLesson
+)
 
 router.delete(
-	'',
+	'/:courseKey',
 	[],
-	// identification,
-	async (req, res) => {
-		try {
-			/*
-				* keyword - string
-			*/
-			// body = req.body
-			await Lesson.deleteMany({owner: body.keyword})
-			const course = await Course.findOneAndDelete({keyword: body.keyword})
-			const users = await User.find()
-			// users.forEach(async u => {
-			//   delete u.subscriptions[course.id.toString()]
-			//   u.markModified('subscriptions')
-			//   await u.save()
-			// })
-			await Subscription.deleteMany({course: course.id})
-			return res.status(202).json({message: 'Подписка успешно удалена'})
-		} catch (e) {
-			console.log(e)
-			return res.status(500).json({e: 'Что-то пошло не так'})
-		}
-	})
+	identification,
+	deleteCourse
+)
+
+router.delete(
+	'/:courseKey/:blockKey',
+	[],
+	identification,
+	deleteBlock
+)
+
+router.delete(
+	'/:courseKey/:blockKey/:index',
+	[],
+	identification,
+	deleteLesson
+)
 
 module.exports = router

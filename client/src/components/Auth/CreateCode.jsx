@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import MiniLoader from "../Loader/MiniLoader";
 
 const CreateCode = ({props: {isForgot, setState, form, changeHandler, request, isLoading}}) => {
-	
+
 	const createCodeHandler = async (ev) => {
 		try {
 			ev.preventDefault()
@@ -14,10 +14,9 @@ const CreateCode = ({props: {isForgot, setState, form, changeHandler, request, i
 			})
 			if(data.ok)	setState(config.regSteps[1])
 		} catch (e) {
-			console.log(e)
 		}
 	}
-	
+
 	return (
 		<>
 			<form className='auth-form' onSubmit={createCodeHandler}>

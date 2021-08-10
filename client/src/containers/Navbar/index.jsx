@@ -9,15 +9,28 @@ export const Navbar = ({authData: {role, theme}}) => {
 	const nav = useRef()
 
 	const clickHandler = ({target}) => {
-		if(![...target.classList].find(c => c === 'nav__burger-elem')) return
+		window.scrollTo(0,0)
+		target.disabled = true
+		if(target.offsetParent.classList.contains('nav__burger_opened')) {
+			setTimeout(() => {
+				target.offsetParent.nextSibling.classList.add('nav__list_closed')
+				target.disabled = false
+			}, 300)
+		} else {
+			target.offsetParent.nextSibling.classList.remove('nav__list_closed')
+			setTimeout(() => {
+				target.disabled = false
+			}, 300)
+		}
 		target.offsetParent.classList.toggle('nav__burger_opened')
 		nav.current.classList.toggle('nav_closed')
 	}
 
 	const closeHandler = ({target}) => {
+		window.scrollTo(0,0)
 		if(target.classList.contains('active') || window.innerWidth > 1550) return
 		clickHandler({
-			target: document.querySelector('.nav__burger-elem')
+			target: document.querySelector('.nav__burger-btn')
 		})
 	}
 
@@ -28,6 +41,7 @@ export const Navbar = ({authData: {role, theme}}) => {
 			return (
 				<nav ref={nav} className='nav'>
 					<div className='nav__burger nav__burger_opened' onClick={clickHandler}>
+						<span className='nav__burger-btn'></span>
 						<span className='nav__burger-elem nav__burger-elem_top'></span>
 						<span className='nav__burger-elem nav__burger-elem_middle'></span>
 						<span className='nav__burger-elem nav__burger-elem_bottom'></span>

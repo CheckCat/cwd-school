@@ -23,7 +23,7 @@ const Hello = ({isAuthenticated, theme}) => {
 			{!isAuthenticated && <div className="hello__addition">
 				Если вы на сайте впервые вам необходимо авторизироваться.
 			</div>}
-			<Link className='btn-continue hello__btn-continue'
+			<Link onClick={() => window.scrollTo(0, 0)} className='btn-continue hello__btn-continue'
 						to={isAuthenticated ? '/buy' : '/auth'}>{isAuthenticated ? 'Оформить подписку' : 'Авторизоваться'}</Link>
 		</section>
 	);

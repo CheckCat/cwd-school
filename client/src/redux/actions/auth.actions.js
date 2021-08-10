@@ -68,7 +68,7 @@ export const tryAuth = (token, request) => async dispatch => {
 		if (!token) return dispatch(readyShow())
 
 		const data = await request(`${config.baseUrl}/api/auth/verify`, 'POST', null,
-			{Authorization: `Bearer ${token}`})
+			{Authorization: `Bearer ${token}`}, null, false, false)
 		dispatch(readyShow())
 		if(!data) return
 		dispatch(pointOutData(data.courses))

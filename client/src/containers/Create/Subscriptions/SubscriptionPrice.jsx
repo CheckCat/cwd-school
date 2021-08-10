@@ -4,11 +4,11 @@ import {connect} from "react-redux";
 
 const SubscriptionPrice = memo(({props: {indexSubscriptionPrice}, form, fillSubscriptionPrice}) => {
 	form = form[indexSubscriptionPrice]
-	
+
 	const changeHandler = ({target: {name, value}}) => {
 		fillSubscriptionPrice(name, value, indexSubscriptionPrice)
 	}
-	
+
 	return (
 		<div className='create-form__price'>
 			<input
@@ -16,7 +16,7 @@ const SubscriptionPrice = memo(({props: {indexSubscriptionPrice}, form, fillSubs
 				type="number"
 				name="duration"
 				value={form.duration}
-				placeholder='Количество месяцец подписки (3)'
+				placeholder='Количество месяцев подписки (3)'
 				onChange={changeHandler}
 			/>
 			<input

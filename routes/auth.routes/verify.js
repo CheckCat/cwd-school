@@ -12,10 +12,10 @@ module.exports = async (req, res) => {
 		const newToken = jwt.sign(
 			{userId},
 			config.get('jwtSecret'),
-			{expiresIn: '1h'}
+			{expiresIn: '30d'}
 		)
 		return res.status(200).json({token: newToken, theme: user.theme, role: user.role, name: user.blockchainAccount, thanksModalIsOpen: user.isThanks, courses: filteredCourses})
 	} catch (e) {
-		return res.status(500).json({message: 'Что-то пошло не так!'})
+		return res.status(500).json({message: 'Что-то пошло не так!', error: e})
 	}
 }

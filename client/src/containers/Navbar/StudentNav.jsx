@@ -25,32 +25,31 @@ const StudentNav = ({authData: {name, token, theme}, closeHandler, coursesData, 
 			await request(`${config.baseUrl}/api/auth/theme`, 'POST', {theme: newTheme},
 				{Authorization: `Bearer ${token}`})
 		} catch(e) {
-		  console.log(e)
 		}
 	}
 
 	return (
 		<>
 			<li className='nav__logo'>
-				<img src={`${theme}-images/nav-logo.png`} className='logo-img' alt="logo"/>
+				<img src={`${config.clientUrl}/${theme}-images/nav-logo.png`} className='logo-img' alt="logo"/>
 				<div className='logo-text'>
 					<p className='logo-text__title'>CrowdSkills</p>
 					<p className='logo-text__description'>blockсhain</p>
 				</div>
 			</li>
 			<li>
-				<Promo theme={theme}/>
+				<Promo token={token} theme={theme}/>
 			</li>
 			<li>
 				<ul className='nav__list nav__auth'>
 					<li className='nav__elem nav__user'>
-						<img src={`${theme}-images/account.png`} className='nav__img' alt="Никнейм"/>
+						<img src={`${config.clientUrl}/${theme}-images/account.png`} className='nav__img' alt="Никнейм"/>
 						{name}
-						<input onClick={clickHandler} className='change-theme' type='image' src={`${theme}-images/theme.png`} alt="Поменять тему"/>
+						<input onClick={clickHandler} className='change-theme' type='image' src={`${config.clientUrl}/${theme}-images/theme.png`} alt="Поменять тему"/>
 					</li>
 					<li>
 						<a className='nav__elem' href="/" onClick={logoutHandler}>
-							<img src={`${theme}-images/logout.png`} className='nav__img' alt="Выйти"/>
+							<img src={`${config.clientUrl}/${theme}-images/logout.png`} className='nav__img' alt="Выйти"/>
 							Выйти
 						</a>
 					</li>
@@ -59,7 +58,7 @@ const StudentNav = ({authData: {name, token, theme}, closeHandler, coursesData, 
 			<LandingNav closeHandler={closeHandler} theme={theme}/>
 			<li>
 				<NavLink onClick={closeHandler} className='nav__elem' to="/buy">
-					<img src={`${theme}-images/buy.png`} className='nav__img' alt="Подписки"/>
+					<img src={`${config.clientUrl}/${theme}-images/buy.png`} className='nav__img' alt="Подписки"/>
 					Купить курс
 				</NavLink>
 			</li>
@@ -71,7 +70,7 @@ const StudentNav = ({authData: {name, token, theme}, closeHandler, coursesData, 
 					return (
 						<li className='nav__elem  course-nav' key={getRandomKey()}>
 							<div className='course-nav__wrapper'>
-								<img src={`${theme}-images/course.png`} className='nav__img' alt="Первый"/>
+								<img src={`${config.clientUrl}/${theme}-images/course.png`} className='nav__img' alt="Первый"/>
 								{title}
 							</div>
 							<ul className='course-nav__list'>

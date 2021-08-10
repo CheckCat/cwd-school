@@ -46,7 +46,7 @@ const Ask = ({isAuthenticated}) => {
 						обучении.</p>
 				</div>
 			</div>
-			<Link className='btn-continue ask__btn-continue'
+			<Link onClick={() => window.scrollTo(0, 0)} className='btn-continue ask__btn-continue'
 						to={isAuthenticated ? '/buy' : '/auth'}>{isAuthenticated ? 'Оформить подписку' : 'Авторизоваться'}</Link>
 		</section>
 	);

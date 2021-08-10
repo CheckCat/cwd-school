@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
 		if (!errors.isEmpty()) {
 			return res.status(400).json({
 				errors: errors.array(),
-				message: 'Некорректный пароль!'
+				message: 'Некорректный пароль! Пароль должен состоять из не менее чем 8 символов'
 			})
 		}
 		let {password, blockchainAccount} = req.body
@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
 		const token = jwt.sign(
 			{userId: user.id},
 			config.get('jwtSecret'),
-			{expiresIn: '1h'}
+			{expiresIn: '30d'}
 		)
 
 		const courses = await getCourses(user)
@@ -42,6 +42,6 @@ module.exports = async (req, res) => {
 
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!'})
+		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!', error: e})
 	}
 }

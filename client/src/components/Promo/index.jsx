@@ -7,26 +7,24 @@ const Promo = ({token, theme}) => {
 	const [btnIsOpen, setBtnIsOpen] = useState(false)
 	const [promoValue, setPromoValue] = useState('')
 	const request = useHttp()
-	
+
 	const changeHandler = ({target}) => {
 		if (target.value.length !== 0) {
 			setBtnIsOpen(true)
 		} else {
 			setBtnIsOpen(false)
 		}
-		setPromoValue(target.value)
+		setPromoValue(target.value.trim().toLowerCase())
 	}
-	
+
 	const clickHandler = async () => {
 		try {
 			const data = await request(`${config.baseUrl}/api/promo`, 'POST', {promocode: promoValue},
 				{Authorization: `Bearer ${token}`})
-			console.log(data)
 		} catch (e) {
-			console.log(e)
 		}
 	}
-	
+
 	return (
 		<div className='promo'>
 			<div className='promo__input-wrapper'>
@@ -34,7 +32,7 @@ const Promo = ({token, theme}) => {
 					<input className='promo__input' onChange={changeHandler} type="text" placeholder='Ваш промокод'
 								 value={promoValue}/>
 					{btnIsOpen &&
-					<input type='image' src={`${theme}-images/success.png`} onClick={clickHandler} className='promo__btn' alt='Отправить'/>}
+					<input type='image' src={`${config.clientUrl}/${theme}-images/success.svg`} onClick={clickHandler} className='promo__btn' alt='Отправить'/>}
 				</div>
 			</div>
 		</div>

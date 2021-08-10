@@ -1,10 +1,10 @@
 {
-  "port": 80,
+  "port": 5000,
   "jwtSecret": "I love cwd",
   "mongoUri": "mongodb+srv://Admin:FXKddArklYyXXxaC@cwd-skills.zsbay.mongodb.net/cwd-skills?retryWrites=true&w=majority",
   "temporaryStorage": "temporaryStorage",
   "endPoint": "files",
-  "mainUrl": "http://crowdskills-blockchain.info",
-  "baseUrl": "http://crowdskills-blockchain.info:80",
-  "flaskUrl": "http://crowdskills-blockchain.info:81"
+  "mainUrl": "https://crowdskills-blockchain.info",
+  "baseUrl": "https://crowdskills-blockchain.info",
+  "flaskUrl": "https://crowdskills-blockchain.info/python"
 }

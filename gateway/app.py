@@ -12,36 +12,43 @@ with open('config.json') as json_data:
 app = Flask(__name__)
 app.config["MONGODB_HOST"] = config['mongoUri']
 
-cors = CORS(app, origins = [config['baseUrl'], config['baseUrl'] + ':80'])
+cors = CORS(app, origins = [config['baseUrl']])
 
 db = MongoEngine()
 db.init_app(app)
 
 candidates = {}
 
-@app.route('/api/create_code', methods=['POST'])
+@app.route('/python/api/create_code', methods=['POST'])
 def createCode():
     data = request.json
 
     try:
         user = Users.objects(blockchainAccount=data['blockchainAccount']).first()
+
         if (data['isForgot']):
-            if (not user):
+            if (user == None):
                 return make_response({"message": "Такого пользователя не существует!"}, 400)
         else:
-            if (user):
+            if (user != None):
                 return make_response({"message": "Такой пользователь уже существует!"}, 400)
         candidates[data['blockchainAccount']] = {}
         candidate = candidates[data['blockchainAccount']]
         candidate['code'] = generateCode()
-        candidate['bc_id'] = sendCode(candidate['code'], data['blockchainAccount'])
+        bc_id = sendCode(candidate['code'], data['blockchainAccount'])
+
+        if(bc_id == False):
+            return make_response({"message": "Что-то пошло не так, попробуйте еще раз!"}, 400)
+        if(bc_id == True):
+            return make_response({"message": "Такого аккаунта не существует!"}, 400)
+        candidate['bc_id'] = bc_id
         return make_response({"ok": True}, 200)
     except:
-        return make_response({"message": "Такого аккаунта не существует!"}, 400)
+        return make_response({"message": "Что-то пошло не так"}, 400)
 
 
 
-@app.route('/api/verify_code', methods=['POST'])
+@app.route('/python/api/verify_code', methods=['POST'])
 def veryfiCode():
     data = request.json
     try:
@@ -54,7 +61,7 @@ def veryfiCode():
         return make_response({"message": "Что-то пошло не так!"}, 500)
 
 
-@app.route('/api/get_subscriptions', methods=['POST'])
+@app.route('/python/api/get_subscriptions', methods=['POST'])
 def getSubs():
     data = request.json
     try:
@@ -66,4 +73,5 @@ def getSubs():
 
 if __name__ == '__main__':
     from waitress import serve
+    print('Flask-сервер был запущен...')
     serve(app, host=config['host'], port=config['port'])

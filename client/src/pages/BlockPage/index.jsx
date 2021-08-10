@@ -7,9 +7,9 @@ import getRandomKey from "../../utils/getRandomKey";
 import config from "../../config";
 import './index.css'
 
-const BlockPage = ({courseKey, token, isLoading}) => {
+const BlockPage = ({token, isLoading}) => {
 	const request = useHttp()
-	const {blockKey} = useParams()
+	const {courseKey, blockKey} = useParams()
 	const {location: {pathname}} = useHistory()
 	const [blockData, setBlockData] = useState({courseTitle: '', blockTitle: '', lessons: []})
 	useEffect(() => {
@@ -17,9 +17,9 @@ const BlockPage = ({courseKey, token, isLoading}) => {
 		const fetchData = async () => {
 			try {
 				const data = await request(`${config.baseUrl}/api/course/${courseKey}/${blockKey}`, 'GET', null, {Authorization: `Bearer ${token}`})
+				if(!data) return
 				isMounted && setBlockData(data)
 			} catch (e) {
-				console.log(e)
 			}
 		}
 		fetchData()
@@ -28,14 +28,13 @@ const BlockPage = ({courseKey, token, isLoading}) => {
 		}
 	}, [blockKey, courseKey, request, setBlockData, token])
 	return (
-		<>
+		<div className='container'>
 			{
 				isLoading
 					?
 					<Loader/>
 					:
 					<div className='blocks'>
-						{console.log(blockData)}
 						<div className='blocks__titles'>
 							<h1 className='blocks__course-title'>{blockData.courseTitle}</h1>
 							<h2 className='blocks__block-title'>{blockData.blockTitle}</h2>
@@ -44,7 +43,8 @@ const BlockPage = ({courseKey, token, isLoading}) => {
 							{blockData.lessons.map(({title, description, index}) => {
 								return (
 									<li className='blocks-list__elem' key={getRandomKey()}>
-										<NavLink className='blocks-list__wrapper' to={`${pathname}/${index}`}>
+										<NavLink onClick={() => window.scrollTo(0, 0)} className='blocks-list__wrapper'
+												 to={`${pathname}/${index}`}>
 											<h3 className='blocks-list__title'>{title}</h3>
 											<p className='blocks-list__description'>{description}</p>
 										</NavLink>
@@ -54,7 +54,7 @@ const BlockPage = ({courseKey, token, isLoading}) => {
 						</ul>
 					</div>
 			}
-		</>
+		</div>
 	)
 }
 

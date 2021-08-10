@@ -1,6 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {BrowserRouter as Router} from "react-router-dom"
-import chooseRoutes from "./routes"
+import AdminRoutes from "./routes/AdminRoutes";
+import StudentRoutes from "./routes/StudentRoutes";
+import DefaultRoutes from "./routes/DefaultRoutes";
 import {connect} from "react-redux";
 import {tryAuth} from "./redux/actions/auth.actions";
 import Navbar from "./containers/Navbar";
@@ -17,8 +19,14 @@ const {storageName} = config
 
 const App = ({authData, addition: {isReady, message, thanksModalIsOpen}, coursesData, tryAuth, setCoursesInfo, setDurationInfo, isOpen}) => {
 	const request = useHttp()
-	const [routes, setRoutes] = useState(<></>)
+	const [routes, setRoutes] = useState(<DefaultRoutes />)
 	const tryAuthCallback = useCallback(tryAuth, [tryAuth])
+
+	const getRoutes = () => {
+		if(authData.role === 'admin') return <AdminRoutes courses={coursesData} token={authData.token} theme={authData.theme}/>
+		if(authData.role === 'student') return <StudentRoutes courses={coursesData}/>
+		return <DefaultRoutes />
+	}
 
 	useEffect(() => {
 		const antipodes = {
@@ -33,24 +41,26 @@ const App = ({authData, addition: {isReady, message, thanksModalIsOpen}, courses
 		const getCourseInfo = async () => {
 			try {
 				const {courses} = await request(`${config.baseUrl}/api/course`)
+
 				setCoursesInfo(courses.map(({title, subscriptionDescription}) => ({title, subscriptionDescription})))
 				setDurationInfo(courses.map(({title, subscriptionPrices}) => ({title, subscriptionPrices})))
 			} catch (e) {
-				console.log(e)
+
 			}
 		}
 		getCourseInfo()
 	}, [request, setCoursesInfo, setDurationInfo])
+
 	useEffect(() => {
-		setRoutes(chooseRoutes(authData.role, coursesData))
-	}, [authData.role, coursesData])
+		setRoutes(getRoutes())
+	}, [authData.role, coursesData, authData.token, authData.theme, setRoutes])
 
 	useEffect(() => {
 		try {
 			const {token} = JSON.parse(localStorage.getItem(storageName)) || {}
 			tryAuthCallback(token, request)
 		} catch (e) {
-			console.log(e)
+
 		}
 	}, [tryAuthCallback, request])
 
@@ -65,9 +75,7 @@ const App = ({authData, addition: {isReady, message, thanksModalIsOpen}, courses
 	return (
 		<Router>
 			<Navbar/>
-			<div className="container">
-				{routes}
-			</div>
+			{routes}
 			{isOpen && <BuyModal/>}
 			{thanksModalIsOpen && <ThanksModal token={authData.token}/>}
 			{message.message && <ModalWindow message={message}/>}

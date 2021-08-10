@@ -1,11 +1,10 @@
 {
-  "port": 5001,
+  "port": 5000,
   "jwtSecret": "I love cwd",
   "mongoUri": "mongodb+srv://Admin:FXKddArklYyXXxaC@cwd-skills.zsbay.mongodb.net/cwd-skills?retryWrites=true&w=majority",
-  "mongoUri1": "mongodb+srv://Admin:W2G-ff9-Xap-bcS@cluster0.9a4cf.mongodb.net/school?retryWrites=true&w=majority",
-  "baseUrl": "http://localhost:5001",
   "temporaryStorage": "temporaryStorage",
   "endPoint": "files",
-  "baseUrl": "http://localhost:3000",
-  "flaskUrl": "http://localhost:5000"
+  "mainUrl": "http://localhost:3000",
+  "baseUrl": "http://localhost:5000",
+  "flaskUrl": "http://localhost:5001"
 }

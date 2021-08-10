@@ -3,7 +3,7 @@ import config from "../../config.js"
 import MiniLoader from "../Loader/MiniLoader";
 
 const VerifyCode = ({props: {setState, fillForm, form, changeHandler, isLoading, request}}) => {
-	
+
 	const verifyCodeHandler = async (ev) => {
 		try {
 			ev.preventDefault()
@@ -16,10 +16,9 @@ const VerifyCode = ({props: {setState, fillForm, form, changeHandler, isLoading,
 				fillForm('blockchainId', data.bc_id, 'reg')
 			}
 		} catch (e) {
-			console.log(e)
 		}
 	}
-	
+
 	return (
 		<form className='auth-form' onSubmit={verifyCodeHandler}>
 			{

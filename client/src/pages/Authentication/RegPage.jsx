@@ -11,18 +11,18 @@ import Footer from "../../containers/Footer";
 
 const RegPage = ({addition: {isLoading}, form, fillForm, login, clearForm, theme, changeTheme}) => {
 	let layout
-	
+
 	const request = useHttp()
 	const [state, setState] = useState(config.regSteps[0])
-	
+
 	const changeHandler = ({target: {name, value}}) => {
-		fillForm(name, value, 'reg')
+		fillForm(name, name === 'password' || name === 'confirmPassword' || name === 'telegram' ? value.trim() : value.trim().toLowerCase(), 'reg')
 	}
-	
+
 	const props = {
 		form, fillForm, isLoading, login, request, changeHandler, setState, clearForm, isForgot: false, changeTheme
 	}
-	
+
 	switch (state) {
 		case 'account':
 			layout = <CreateCode props={props}/>
@@ -36,7 +36,7 @@ const RegPage = ({addition: {isLoading}, form, fillForm, login, clearForm, theme
 		default:
 			return
 	}
-	
+
 	return (
 		<>
 			<div className="header">
@@ -47,7 +47,7 @@ const RegPage = ({addition: {isLoading}, form, fillForm, login, clearForm, theme
 			<Footer/>
 		</>
 	)
-	
+
 }
 
 const mapStateToProps = ({addition, regForm, transferState, authData: {theme}}) => ({

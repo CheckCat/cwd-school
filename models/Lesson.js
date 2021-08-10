@@ -1,11 +1,12 @@
-const {Schema, model, Types} = require('mongoose')
+const {Schema, model} = require('mongoose')
 
 const schema = new Schema({
-	title: {type: String, required: true},
-	description: {type: String, required: true},
+	title: {type: String},
+	description: {type: String},
 	video: {type: String},
-	audio: [{type: String}],
+	audio: [{type: String}],//поменять
 	pdf: [{type: String}],
+	index: {type: String},
 	timecodes: [{
 		time: '',
 		description: ''

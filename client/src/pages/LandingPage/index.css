@@ -17,7 +17,6 @@
 .courses-info {
     display: flex;
     flex-direction: column;
-    gap: 130px;
 }
 
 .btn-continue {

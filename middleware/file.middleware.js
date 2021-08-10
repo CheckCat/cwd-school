@@ -52,10 +52,10 @@ module.exports = async (req, res, next) => {
 	if (req.method === 'OPTIONS') {
 		return next()
 	}
-	
+
 	try {
 		const data = JSON.parse(req.body.data)
-		
+
 		data.blocks.forEach(b => {
 			mkdirSync(`files/${data.keyword}/${b.keyword}`, {recursive: true})
 			b.lessons.forEach((_, lessonIndex) => {
@@ -64,11 +64,11 @@ module.exports = async (req, res, next) => {
 				mkdirSync(`files/${data.keyword}/${b.keyword}/${lessonIndex + 1}/images`, {recursive: true})
 			})
 		})
-		
+
 		dragAndDropFiles(data, temporaryStorage, endPoint)
-		
+
 		next()
 	} catch {
-		return res.status(400).json({message: 'При создании файлов произошла ошибка'})
+		return res.status(400).json({message: 'При создании файлов произошла ошибка', error: e})
 	}
 }

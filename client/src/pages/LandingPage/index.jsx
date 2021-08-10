@@ -10,7 +10,7 @@ import Footer from "../../containers/Footer";
 import {connect} from 'react-redux'
 
 const LandingPage = ({isAuthenticated, coursesInfo, theme}) => (
-	<>
+	<div className="container">
 		<div className='first-screen'>
 			<div className="header">
 				<img className='header__img' src={`${theme}-images/logo-main.png`} alt="logo"/>
@@ -19,7 +19,7 @@ const LandingPage = ({isAuthenticated, coursesInfo, theme}) => (
 		</div>
 		<section className='courses-preview'>
 			<ul>
-				{coursesInfo.map(c => <CourseInfo key={getRandomKey()} isOpen={isAuthenticated}
+				{coursesInfo.map((c, i) => <CourseInfo key={getRandomKey()} isOpen={isAuthenticated} index={i}
 																					isAuthenticated={isAuthenticated} courseInfo={c}/>)}
 			</ul>
 		</section>
@@ -27,7 +27,7 @@ const LandingPage = ({isAuthenticated, coursesInfo, theme}) => (
 		<Advantages theme={theme}/>
 		<Ask isAuthenticated={isAuthenticated}/>
 		<Footer/>
-	</>
+	</div>
 )
 
 

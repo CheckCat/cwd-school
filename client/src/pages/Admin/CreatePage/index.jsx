@@ -5,19 +5,19 @@ import {
 	fillCourse,
 	fillSubscriptionInfo,
 	fillSubscriptionPrice
-} from "../../redux/actions/create.actions"
+} from "../../../redux/actions/create.actions"
 import {connect} from "react-redux"
-import Block from "../../containers/Create/Blocks"
-import getRandomKey from "../../utils/getRandomKey"
-import SubscriptionPrice from "../../containers/Create/Subscriptions/SubscriptionPrice"
-import useHttp from "../../hooks/http.hook"
-import SubscriptionInfo from "../../containers/Create/Subscriptions/SubscriptionInfo"
+import Block from "../../../containers/Create/Blocks"
+import getRandomKey from "../../../utils/getRandomKey"
+import SubscriptionPrice from "../../../containers/Create/Subscriptions/SubscriptionPrice"
+import useHttp from "../../../hooks/http.hook"
+import SubscriptionInfo from "../../../containers/Create/Subscriptions/SubscriptionInfo"
 import './index.css'
 
-import config from '../../config.js'
+import config from '../../../config.js'
 
 const {storageName} = config
-
+// СТАРАЯ НЕИСПОЛЬЗУЕМАЯ ЛОГИКА. УДАЛИТЬ ИЛИ ПОМЕНЯТЬ!!!
 const CreatePage = ({theme, form, clearCourse, fillCourse, fillBlock, fillSubscriptionPrice, fillSubscriptionInfo}) => {
 	const [blocks, setBlocks] = useState([])
 	const [files, setFiles] = useState({})
@@ -25,7 +25,7 @@ const CreatePage = ({theme, form, clearCourse, fillCourse, fillBlock, fillSubscr
 	const [subscriptionsPrice, setSubscriptionsPrice] = useState([])
 	const [subscriptionsInfo, setSubscriptionsInfo] = useState([])
 	const request = useHttp()
-	
+
 	useEffect(() => {
 		setBlocks(prev => [...prev, <Block key={getRandomKey()} props={{indexBlock: 0}}/>])
 		setSubscriptionsPrice(prev => [...prev,
@@ -33,17 +33,17 @@ const CreatePage = ({theme, form, clearCourse, fillCourse, fillBlock, fillSubscr
 		setSubscriptionsInfo(prev => [...prev,
 			<SubscriptionInfo key={getRandomKey()} props={{indexSubscriptionInfo: 0}}/>])
 	}, [])
-	
+
 	const changeHandler = ({target: {name, value}}) => {
 		fillCourse(name, value)
 	}
-	
+
 	const fileHandler = ({target: {name, files}}) => {
 		const file = [...files].map(f => f.name)[0]
 		setFiles({[name]: file})
 		fillCourse(name, file)
 	}
-	
+
 	const courseHandler = async ev => {
 		ev.preventDefault()
 		try {
@@ -68,37 +68,39 @@ const CreatePage = ({theme, form, clearCourse, fillCourse, fillBlock, fillSubscr
 			]
 			submissionForm.files = files
 			auxiliary.current.value = JSON.stringify(submissionForm)
-			
+
 			const formData = new FormData(ev.target)
 			const data = await request(`${config.baseUrl}/api/course/create`, 'POST', formData, {Authorization: `Bearer ${DATA.token}`}, 'SENDFILES')
+			if(!data) return
+
 			setBlocks([<Block key={getRandomKey()} props={{indexBlock: 0}}/>])
 			setSubscriptionsPrice([<SubscriptionPrice key={getRandomKey()} props={{indexSubscriptionPrice: 0}}/>])
 			setSubscriptionsInfo([<SubscriptionInfo key={getRandomKey()} props={{indexSubscriptionInfo: 0}}/>])
 			clearCourse()
-			console.log(data)
+
 		} catch (e) {
-			console.log(e)
 		}
 	}
-	
+
 	const createBlock = () => {
 		fillBlock(null, null, blocks.length)
 		setBlocks(prev => [...prev, <Block key={getRandomKey()} props={{indexBlock: prev.length}}/>])
 	}
-	
+
 	const createSubscriptionPrice = () => {
 		fillSubscriptionPrice(null, null, subscriptionsPrice.length)
 		setSubscriptionsPrice(prev => [...prev,
 			<SubscriptionPrice key={getRandomKey()} props={{indexSubscriptionPrice: prev.length}}/>])
 	}
-	
+
 	const createSubscriptionInfo = () => {
 		fillSubscriptionInfo(null, subscriptionsInfo.length)
 		setSubscriptionsInfo(prev => [...prev,
 			<SubscriptionInfo key={getRandomKey()} props={{indexSubscriptionInfo: prev.length}}/>])
 	}
-	
+
 	return (
+		<div className='container'>
 		<form className='create-form' onSubmit={courseHandler}>
 			<input type="hidden" name='data' ref={auxiliary}/>
 			<h1 className='create-form__title'>Создание курса</h1>
@@ -130,7 +132,7 @@ const CreatePage = ({theme, form, clearCourse, fillCourse, fillBlock, fillSubscr
 								Иконка курса
 							</>
 					}
-					
+
 					<input
 						type="file"
 						name="icon"
@@ -160,6 +162,7 @@ const CreatePage = ({theme, form, clearCourse, fillCourse, fillBlock, fillSubscr
 			{blocks}
 			<button className='create-form__button' type="submit">Загрузить курс</button>
 		</form>
+		</div>
 	)
 }
 

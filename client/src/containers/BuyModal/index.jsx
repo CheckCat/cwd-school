@@ -9,39 +9,48 @@ const BuyModal = ({data: {title, subscriptionPrices}, toggleBuyModalWindow}) => 
 	// eslint-disable-next-line
 	const [_, setCurrent] = useState()
 	const link = useRef()
-	
+
 	useEffect(() => {
 		const initial = document.querySelectorAll('.subs-modal__elem')[0]
-		console.log(initial, initial.dataset)
 		initial.classList.add('subs-modal__elem_active')
 		link.current.href = `${config.paymentUrlTemplate}${initial.dataset.value}`
-		console.log(link.current)
 		setCurrent(initial)
 	}, [subscriptionPrices, setCurrent])
-	
+
 	const clickHandler = ({target}) => {
 		setCurrent(prev => {
+			if(target === prev) return prev
+			if(target.classList.contains('subs-modal__text')) target = target.parentElement
 			prev.classList.remove('subs-modal__elem_active')
 			target.classList.add('subs-modal__elem_active')
 			link.current.href = `${config.paymentUrlTemplate}${target.dataset.value}`
 			return target
 		})
 	}
-	
+
+	const getNoun = (number, one, two, five) => {
+		let n = Math.abs(number);
+		n %= 100;
+		if (n >= 5 && n <= 20) {
+			return five;
+		}
+		n %= 10;
+		if (n === 1) {
+			return one;
+		}
+		if (n >= 2 && n <= 4) {
+			return two;
+		}
+		return five;
+	}
+
 	const paymentList = useMemo(() => subscriptionPrices.map(({price, duration}) => {
-		let monthTemplate = 'Месяц'
-		if (price > 1 && price < 5) {
-			monthTemplate = 'Месяца'
-		}
-		if (price > 4) {
-			monthTemplate = 'Месяцев'
-		}
 		return (<li key={getRandomKey()} onClick={clickHandler} data-value={price} className='subs-modal__elem'>
-			<p className='subs-modal__text'>{duration} {monthTemplate}</p>
+			<p className='subs-modal__text'>{duration} {getNoun(duration, 'Месяц', 'Месяца', 'Месяцев')}</p>
 			<p className='subs-modal__text'>{price} CWD</p>
 		</li>)
 	}), [subscriptionPrices])
-	
+
 	return (
 		<div className='disabled'>
 			<div className='container subs-modal'>
@@ -51,6 +60,11 @@ const BuyModal = ({data: {title, subscriptionPrices}, toggleBuyModalWindow}) => 
 					{paymentList}
 				</ul>
 				<button onClick={toggleBuyModalWindow} className='subs-modal__close-btn'></button>
+				<p className='abc' style={{fontSize: '1.8rem', textAlign: 'center'}}>
+					После оплаты подписки на платформе CWD.Global обновите страницу этого сайта.
+					После обновления страницы в течение 1-2 минут
+					курс появится в вашем личном кабинете
+				</p>
 				<a ref={link} className='subs-modal__continue-btn' href='/' target='_blank'>Продолжить</a>
 			</div>
 		</div>

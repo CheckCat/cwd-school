@@ -7,7 +7,7 @@ import {
 	FILL_SUBSCRIPTION_PRICE, FILL_TEXT,
 	FILL_TIMECODE
 } from "../types"
-
+// СТАРАЯ НЕИСПОЛЬЗУЕМАЯ ЛОГИКА. УДАЛИТЬ ИЛИ ИСПРАВИТЬ!!!
 export const clearCourse = () => {
 	return {
 		type: CLEAR_COURSE

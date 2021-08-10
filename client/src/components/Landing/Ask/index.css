@@ -65,14 +65,19 @@
     display: none;
 }
 
+@media (max-width: 600px) {
+	.ask__container {
+		padding: 0 20px 30px;
+	}
+}
+
 @media (max-width: 450px) {
     .ask__container {
         margin-top: 30px;
         padding-top: 40px;
     }
     .ask__title {
-        padding: 0;
-        padding-bottom: 10px;
+        padding: 10px 30px;
         background: transparent;
     }
 }

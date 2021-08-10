@@ -1,13 +1,19 @@
 import React from 'react'
 import config from '../../config'
 import MiniLoader from "../Loader/MiniLoader";
+import {clearError, setError} from "../../redux/actions/service.actions";
+import {connect} from "react-redux";
 
-const ForgotRegister = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme, toggleThanksIsOpen}}) => {
+const ForgotRegister = ({props: {form, changeHandler, login, clearForm, isLoading, request, changeTheme, toggleThanksIsOpen}, setError, clearError}) => {
 
 	const registerHandler = async (ev) => {
 		try {
 			ev.preventDefault()
-			if (form.password !== form.confirmPassword) return
+			if (form.password !== form.confirmPassword) {
+				setError('Пароли не совпадают!', true)
+				setTimeout(() => clearError(), 3000)
+				return
+			}
 			const {token, role, name, theme, thanksModalIsOpen} = await request(`${config.baseUrl}/api/auth/forgot_change_pass`, 'POST', {
 				blockchainAccount: form.blockchainAccount,
 				blockchainId: form.blockchainId,
@@ -18,7 +24,6 @@ const ForgotRegister = ({props: {form, changeHandler, login, clearForm, isLoadin
 			changeTheme(theme)
 			clearForm('reg')
 		} catch (e) {
-			console.log(e)
 		}
 	}
 
@@ -39,7 +44,7 @@ const ForgotRegister = ({props: {form, changeHandler, login, clearForm, isLoadin
 									name="password"
 									value={form.password}
 									onChange={changeHandler}
-									placeholder="Пароль (минимум 6 символов)"
+									placeholder="Пароль (минимум 8 символов)"
 									required/>
 							</div>
 						</div>
@@ -62,5 +67,8 @@ const ForgotRegister = ({props: {form, changeHandler, login, clearForm, isLoadin
 		</form>
 	);
 }
-
-export default ForgotRegister
+const mapDispatchToProps = {
+	setError,
+	clearError,
+}
+export default connect(() => ({}), mapDispatchToProps)(ForgotRegister)

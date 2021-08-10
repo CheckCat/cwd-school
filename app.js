@@ -9,19 +9,21 @@ const getSubs = require('./modules/getSubs')
 const app = express()
 app.use(express.json({extended: true}))
 app.use(cors({
-  origin: config.get('baseUrl')
+  origin: config.get('mainUrl')
 }))
+
 
 app.use('/files', require('./routes/file.routes'))
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/course', require('./routes/course.routes'))
 app.use('/api/promo', require('./routes/promo.routes'))
-// app.use('/api/subs', require('./routes/subs.routes'))
+app.use('/api/users', require('./routes/users.routes'))
+app.use('/api/excel', require('./routes/excel.routes'))
 
 if(process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')))
 
-  app.get('*', (req,res) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
@@ -36,8 +38,8 @@ const start = async () => {
       useCreateIndex: true
     })
     app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
-    // const [{maxOp}] = await MaxOp.find()
-    // getSubs(maxOp)
+    const [{maxOp}] = await MaxOp.find()
+    getSubs(maxOp)
   } catch (e) {
     process.exit(1)
   }

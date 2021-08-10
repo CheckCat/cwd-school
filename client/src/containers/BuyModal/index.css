@@ -1,3 +1,11 @@
+.abc {
+    color: var(--main-green-color);
+}
+
+.light-theme .abc{
+    color: var(--white);
+}
+
 .disabled {
     position: fixed;
     width: 100%;

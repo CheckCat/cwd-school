@@ -33,12 +33,12 @@ module.exports = async (req, res) => {
 		const token = jwt.sign(
 			{userId: user.id},
 			config.get('jwtSecret'),
-			{expiresIn: '1h'}
+			{expiresIn: '30d'}
 		)
 		return res.status(200).json({message: 'Вы успешно вошли!', token, theme: user.theme, role: user.role, name: user.blockchainAccount, thanksModalIsOpen: user.isThanks, courses: filteredCourses})
 
 	} catch (e) {
 		console.log(e)
-		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!'})
+		return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!', error: e})
 	}
 }

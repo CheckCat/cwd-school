@@ -17,7 +17,7 @@ const ForgotPage = ({addition: {isLoading}, form, fillForm, login, clearForm, th
 	const [state, setState] = useState(config.regSteps[0])
 
 	const changeHandler = ({target: {name, value}}) => {
-		fillForm(name, value, 'reg')
+		fillForm(name, value.trim().toLowerCase(), 'reg')
 	}
 
 	const props = {

@@ -47,3 +47,7 @@
     border-radius: 50%;
     background: var(--opposite-main-green-color);
 }
+
+.nav_closed .promo__btn{
+    right: -30px;
+}

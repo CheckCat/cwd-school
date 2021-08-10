@@ -5,8 +5,8 @@ module.exports = async (user) => {
 	const courses = await Promise.all(user.subscriptions.map(async ({course, timeframe}) => {
 		let {keyword, title, subscriptionPrices, subscriptionInfo, blocks} = await Course.findById(course)
 		blocks = await Promise.all(blocks.map(async id => {
-			const {keyword, title} = await Block.findById(id)
-			return {keyword, title}
+			const {keyword, title, lessons} = await Block.findById(id)
+			return {keyword, title, lessonsLength: lessons.length}
 		}))
 		const prices = subscriptionPrices
 		const info = subscriptionInfo

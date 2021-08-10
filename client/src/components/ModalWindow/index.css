@@ -5,7 +5,7 @@
     padding: 1rem 3rem;
     font-size: 1.9em;
     font-family: 'Roboto-Medium';
-    background: var(--first-gradient-color);
+    background: #282828;
 }
 
 .modal-window_error {
@@ -13,5 +13,5 @@
 }
 
 .modal-window_success {
-    color: var(--main-green-color);
+    color: #2DFF9A;
 }

@@ -6,8 +6,7 @@ module.exports = async (req, res) => {
 		const fileStream = createReadStream(`files/${course}/${block}/${lesson}/${type}/${filename}`);
 
 		fileStream.on('open', () => {
-			const type = filename.split('.')[1]
-
+			const type = filename.split('.').pop()
 			switch (type) {
 				case 'pdf':
 					res.contentType('application/pdf')
@@ -15,11 +14,17 @@ module.exports = async (req, res) => {
 				case 'mp3':
 					res.contentType('audio/mpeg')
 					break
+				case 'ogg':
+					res.contentType('audio/ogg')
+					break
 				case 'mp4':
 					res.contentType('audio/mp4')
 					break
 				case 'jpg':
-					res.contentType('image/JPEG')
+					res.contentType('image/jpeg')
+					break
+				case 'png':
+					res.contentType('image/png')
 					break
 				default:
 					res.contentType('application/json')
@@ -31,6 +36,6 @@ module.exports = async (req, res) => {
 			return res.status(402).json({message: 'Ошибка при получении файла!'})
 		})
 	} catch (e) {
-		return res.status(400).json({message: 'Что-то пошло не так!'})
+		return res.status(400).json({message: 'Что-то пошло не так!', error: e})
 	}
 }

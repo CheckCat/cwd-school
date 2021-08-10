@@ -14,7 +14,7 @@ const AuthPage = ({addition: {isLoading}, theme, form, fillForm, login, clearFor
 	const request = useHttp()
 
 	const changeHandler = ({target: {name, value}}) => {
-		fillForm(name, value, 'auth')
+		fillForm(name, name === 'password' ? value.trim() : value.trim().toLowerCase(), 'auth')
 	}
 
 	const loginHandler = async (ev) => {
@@ -27,7 +27,6 @@ const AuthPage = ({addition: {isLoading}, theme, form, fillForm, login, clearFor
 			pointOutData(data.courses)
 			clearForm('auth')
 		} catch (e) {
-			console.log(e)
 		}
 	}
 
